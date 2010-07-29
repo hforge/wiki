@@ -34,6 +34,7 @@ from docutils import nodes
 
 # Import from itools
 from itools.core import merge_dicts
+from itools.database import PhraseQuery
 from itools.datatypes import String, Enumerate, Boolean
 from itools.gettext import MSG
 from itools.handlers import checkid, ro_database
@@ -43,14 +44,13 @@ from itools.uri import get_reference
 from itools.uri.mailto import Mailto
 from itools.fs import lfs, FileName
 from itools.web import BaseView, STLView, ERROR, get_context
-from itools.xapian import PhraseQuery
 from itools.xml import XMLParser, XMLError
 
 # Import from ikaaro
 from ikaaro import messages
 from ikaaro.datatypes import FileDataType
-from ikaaro.forms import AutoForm, FileWidget, SelectRadio, BooleanRadio
-from ikaaro.forms import title_widget, timestamp_widget
+from ikaaro.autoform import AutoForm, FileWidget, RadioWidget
+from ikaaro.autoform import title_widget, timestamp_widget
 from ikaaro.resource_views import DBResource_Edit
 from ikaaro.views import ContextMenu
 
@@ -521,11 +521,11 @@ class WikiPage_ToODT(AutoForm):
     schema = {'template': TemplateList,
             'template_upload': FileDataType,
             'ignore_missing_pages': Boolean}
-    widgets = [SelectRadio('template', title=MSG(u"Choose a template:"),
+    widgets = [RadioWidget('template', title=MSG(u"Choose a template:"),
             has_empty_option=False),
         FileWidget('template_upload',
             title=MSG(u"Or provide another ODT as a template:")),
-        BooleanRadio('ignore_missing_pages',
+        RadioWidget('ignore_missing_pages',
             title=MSG(u"Ignore missing pages"))]
     submit_value = MSG(u"Convert")
 

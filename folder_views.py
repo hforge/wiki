@@ -30,7 +30,9 @@ class WikiMenu(ContextMenu):
 
     title = MSG(u'Wiki')
 
-    def get_items(self, resource, context):
+    def get_items(self):
+        context = self.context
+        resource = self.resource
         # If called from a child
         if isinstance(resource, WikiPage):
             resource = resource.parent

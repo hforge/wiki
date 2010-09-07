@@ -121,7 +121,9 @@ def resolve_images(doctree, resource, context):
 class BacklinksMenu(ContextMenu):
     title = MSG(u"Backlinks")
 
-    def get_items(self, resource, context):
+    def get_items(self):
+        context = self.context
+        resource = self.resource
         root = context.root
         query = PhraseQuery('links', str(resource.get_canonical_path()))
         results = context.root.search(query)
@@ -671,11 +673,10 @@ class WikiPage_ToODT(AutoForm):
                     heading_level=heading_level)
 
         context.set_content_type('application/vnd.oasis.opendocument.text')
-        filename = book.get('filename')
+        filename = book.get('filename') if book else None
         if not filename:
             filename = '%s.odt' % resource.name
-        context.set_content_disposition('attachment',
-                filename=filename)
+        context.set_content_disposition('attachment', filename=filename)
 
         output = StringIO()
         document.save(output)

@@ -479,32 +479,37 @@ class WikiPage_Edit(DBResource_Edit):
         return namespace
 
 
+    def set_value(self, resource, context, name, form):
+        if name == 'data':
+            # Data is assumed to be encoded in UTF-8
+            data = form['data']
+            # Save even if broken
+            resource.handler.load_state_from_string(data)
+
+            # Warn about syntax errors
+            message = None
+            try:
+                html = resource.view.GET(resource, context)
+                # Non-critical
+                if 'class="system-message"' in html:
+                    message = ERROR(u"Syntax error, please check the view for "
+                                    u"details.")
+            except SystemMessage, e:
+                # Critical
+                message = ERROR(u'Syntax error: {error}', error=e.message)
+            if message:
+                return True
+            else:
+                accept = context.accept_language
+                time = format_datetime(datetime.now(), accept=accept)
+                message = messages.MSG_CHANGES_SAVED2(time=time)
+                context.message = message
+                return False
+        return DBResource_Edit.set_value(self, resource, context, name, form)
+
+
     def action_save(self, resource, context, form):
         DBResource_Edit.action(self, resource, context, form)
-        if isinstance(context.message, ERROR):
-            return
-        # Data is assumed to be encoded in UTF-8
-        data = form['data']
-        # Save even if broken
-        resource.handler.load_state_from_string(data)
-
-        # Warn about syntax errors
-        message = None
-        try:
-            html = resource.view.GET(resource, context)
-            # Non-critical
-            if 'class="system-message"' in html:
-                message = ERROR(u"Syntax error, please check the view for "
-                                u"details.")
-        except SystemMessage, e:
-            # Critical
-            message = ERROR(u'Syntax error: {error}', error=e.message)
-        if message is None:
-            accept = context.accept_language
-            time = format_datetime(datetime.now(), accept=accept)
-            message = messages.MSG_CHANGES_SAVED2(time=time)
-
-        context.message = message
 
 
     def action_save_and_view(self, resource, context, form):

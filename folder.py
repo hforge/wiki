@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 # Copyright (C) 2007 Henry Obein <henry@itaapy.com>
-# Copyright (C) 2007 Hervé Cauwelier <herve@itaapy.com>
 # Copyright (C) 2007 Sylvain Taverne <sylvain@itaapy.com>
+# Copyright (C) 2007, 2010 Hervé Cauwelier <herve@itaapy.com>
 # Copyright (C) 2007-2008 Juan David Ibáñez Palomar <jdavid@itaapy.com>
 # Copyright (C) 2008 Gautier Hayoun <gautier.hayoun@itaapy.com>
 #

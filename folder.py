@@ -25,7 +25,10 @@ from itools.gettext import MSG
 from ikaaro.file import File
 from ikaaro.folder import Folder
 from ikaaro.folder_views import GoToSpecificDocument
+from ikaaro.registry import register_document_type
 from ikaaro.resource_views import DBResource_Edit
+
+# Import from wiki
 from folder_views import WikiMenu
 from page import WikiPage
 
@@ -60,3 +63,7 @@ class WikiFolder(Folder):
     view = GoToSpecificDocument(specific_document='FrontPage')
     edit = DBResource_Edit(title=MSG(u"Edit Wiki"))
 
+
+
+# Register document type
+register_document_type(WikiFolder)

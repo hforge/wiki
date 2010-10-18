@@ -132,6 +132,7 @@ class Book(Directive):
 
 class WikiPage(Text):
     class_id = 'WikiPage'
+    class_version = '20090123'
     class_title = MSG(u"Wiki Page")
     class_description = MSG(u"Wiki contents")
     class_icon16 = 'wiki/WikiPage16.png'

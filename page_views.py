@@ -473,10 +473,22 @@ class WikiPage_Edit(DBResource_Edit):
 
 
     def get_namespace(self, resource, context):
-        namespace = DBResource_Edit.get_namespace(self, resource, context)
-        namespace['data'] = (context.get_form_value('data') or
-                resource.handler.to_str())
+        namespace = super(WikiPage_Edit, self).get_namespace(resource,
+                context)
+        schema = self.get_schema(resource, context)
+        namespace['data'] = self.get_value(resource, context, 'data',
+                schema['data'])
         return namespace
+
+
+    def get_value(self, resource, context, name, datatype):
+        if name == 'data':
+            data = context.get_form_value('data', type=datatype)
+            if data is None:
+                data = resource.handler.to_str()
+            return data
+        return super(WikiPage_Edit, self).get_value(resource, context, name,
+                datatype)
 
 
     def set_value(self, resource, context, name, form):
@@ -505,11 +517,12 @@ class WikiPage_Edit(DBResource_Edit):
                 message = messages.MSG_CHANGES_SAVED2(time=time)
                 context.message = message
                 return False
-        return DBResource_Edit.set_value(self, resource, context, name, form)
+        return super(WikiPage_Edit, self).set_value(resource, context, name,
+                form)
 
 
     def action_save(self, resource, context, form):
-        DBResource_Edit.action(self, resource, context, form)
+        super(WikiPage_Edit, self).action(resource, context, form)
 
 
     def action_save_and_view(self, resource, context, form):

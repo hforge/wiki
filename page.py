@@ -261,12 +261,12 @@ class WikiPage(Text):
     def get_links(self):
         base = self.get_abspath()
 
-        links = []
+        links = set()
         try:
             doctree = self.get_doctree()
         except SystemMessage:
             # The doctree is in a incoherent state
-            return None
+            return set()
         for node in doctree.traverse(condition=nodes.reference):
             refname = node.get('wiki_name')
             if refname is False:
@@ -288,7 +288,7 @@ class WikiPage(Text):
                     continue
                 path = base.resolve2(reference.path)
             path = str(path)
-            links.append(path)
+            links.add(path)
 
         for node in doctree.traverse(condition=nodes.image):
             reference = get_reference(node['uri'].encode('utf_8'))
@@ -298,7 +298,7 @@ class WikiPage(Text):
             # Resolve the path
             path = base.resolve(reference.path)
             path = str(path)
-            links.append(path)
+            links.add(path)
 
         return links
 

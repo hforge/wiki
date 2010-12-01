@@ -148,6 +148,14 @@
                           <img src="/ui/wiki/help.png" />
                         </a>
                       </td>
+                      <td>
+                        <a id="data-fullscreen" title="Toggle fullscreen mode"
+                          class="mceButton mceButtonEnabled mce_fullscreen"
+                          onclick="return wiki_fullscreen(this);"
+                          href="javascript:;">
+                          <span class="mceIcon mce_fullscreen"></span>
+                        </a>
+                      </td>
                       <td class="mceToolbarEnd mceToolbarEndListBox mceLast">
                         <span><!-- IE --></span>
                       </td>
@@ -164,7 +172,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="mceLast">
+            <tr class="mceLast statusbar">
               <td class="mceStatusbar mceFirst mceLast">
                 <a id="data-resize" href="javascript:;" class="mceResize"></a>
               </td>

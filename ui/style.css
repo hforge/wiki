@@ -141,3 +141,9 @@ table.docutils.field-list {
 table.docutils.field-list td {
   border: none;
 }
+
+/* fullscreen */
+div.mceEditor #table-data.fullscreen {
+  width: 100%;
+  height: 100%;
+}

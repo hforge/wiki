@@ -182,6 +182,84 @@ function wiki_help() {
 }
 
 
+// Keep wiki sizes
+var wiki_tinymce_data_height = null;
+var wiki_temp_class = 'obPHN5WWVo';
+
+function wiki_fullscreen() {
+  // variables
+  var table_container = $("#data-table");
+  var mceIframeContainer = $("#data-table .mceIframeContainer");
+  var tinymce_container = $("#tinymce")
+  var tinymce_data = $("#data")
+  var fullscreen = table_container.hasClass('fullscreen');
+  var mceEditor = null;
+
+  if (fullscreen == false) {
+    // Toggle fullscreen
+    mceEditor = $(".mceEditor.defaultSkin");
+    mceEditor.removeClass("mceEditor defaultSkin");
+    mceEditor.addClass(wiki_temp_class);
+
+    // backup size
+    wiki_tinymce_data_height = tinymce_data.height();
+
+    // add fullscreen class
+    table_container.addClass('fullscreen');
+    // Hide resize bar
+    $("#data-table tr.mceLast.statusbar").hide();
+
+    // Move div inside body
+    // step 1 create a fake mceEditor container
+    var fake_container = $("<div class='mceEditor defaultSkin fake-container'></div>");
+    // step 2 append it to the body
+    fake_container.appendTo($("body"));
+    // step 3 move table container
+    table_container.appendTo(fake_container);
+    // step 4 hide the rest of the content
+    $("#page").hide();
+
+    // Resize editor
+    var viewport_width = $(window).width();
+    var viewport_height = $(window).height();
+    table_container.height(viewport_height);
+    table_container.width(viewport_width);
+    tinymce_container.height(mceIframeContainer.height());
+    tinymce_container.width(mceIframeContainer.width());
+    tinymce_data.height(tinymce_container.height());
+    tinymce_data.width(tinymce_container.width());
+  } else {
+    // Exit fullscreen mode
+
+    // restore size
+    table_container.width(''); // Do not set a width
+    table_container.height(''); // Do not set a width
+    mceIframeContainer.width(''); // Do not set a width
+    mceIframeContainer.height(''); // Do not set a width
+    tinymce_container.width(''); // Do not set a width
+    tinymce_container.height(''); // Do not set a width
+    tinymce_data.width(''); // Do not set a width
+    tinymce_data.height(wiki_tinymce_data_height);
+
+    // Attach wiki to real containner
+    mceEditor = $('.' + wiki_temp_class);
+    mceEditor.removeClass(wiki_temp_class);
+    mceEditor.addClass('mceEditor defaultSkin');
+    table_container.appendTo(mceEditor);
+    // Remove class
+    table_container.removeClass('fullscreen');
+    // Hide resize bar
+    $("#data-table  tr.mceLast.statusbar").show();
+    // Remove fake container
+    $(".mceEditor.fake-container").remove();
+    // Show the rest of the content
+    $("#page").show();
+  }
+
+  return false;
+}
+
+
 /*
  * Insert image or link from popup
  */

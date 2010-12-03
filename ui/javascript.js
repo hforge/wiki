@@ -188,72 +188,76 @@ var wiki_temp_class = 'obPHN5WWVo';
 
 function wiki_fullscreen() {
   // variables
+  var form_container = $("#wiki-form");
   var table_container = $("#data-table");
   var mceIframeContainer = $("#data-table .mceIframeContainer");
   var tinymce_container = $("#tinymce")
   var tinymce_data = $("#data")
-  var fullscreen = table_container.hasClass('fullscreen');
-  var mceEditor = null;
+  var fullscreen = form_container.hasClass('fullscreen');
+  var to_hide = [$("legend"), $("#wiki-widgets"), $("#wiki-buttons"),
+      $("#data-table tr.mceLast.statusbar"), $("#page")];
 
   if (fullscreen == false) {
     // Toggle fullscreen
-    mceEditor = $(".mceEditor.defaultSkin");
-    mceEditor.removeClass("mceEditor defaultSkin");
-    mceEditor.addClass(wiki_temp_class);
 
-    // backup size
+    // Backup size
     wiki_tinymce_data_height = tinymce_data.height();
 
-    // add fullscreen class
-    table_container.addClass('fullscreen');
-    // Hide resize bar
-    $("#data-table tr.mceLast.statusbar").hide();
+    // Add fullscreen class
+    form_container.addClass('fullscreen');
 
-    // Move div inside body
-    // step 1 create a fake mceEditor container
-    var fake_container = $("<div class='mceEditor defaultSkin fake-container'></div>");
-    // step 2 append it to the body
-    fake_container.appendTo($("body"));
-    // step 3 move table container
-    table_container.appendTo(fake_container);
-    // step 4 hide the rest of the content
-    $("#page").hide();
+    // Move outside the page
+    form_container.detach();
+    form_container.appendTo($("body"));
+
+    // Hide the rest of the content
+    for (i = 0; i < to_hide.length; i++) {
+        to_hide[i].hide();
+    }
 
     // Resize editor
     var viewport_width = $(window).width();
     var viewport_height = $(window).height();
-    table_container.height(viewport_height);
+    form_container.width(viewport_width);
+    form_container.height(viewport_height);
     table_container.width(viewport_width);
-    tinymce_container.height(mceIframeContainer.height());
+    table_container.height(viewport_height);
+
     tinymce_container.width(mceIframeContainer.width());
-    tinymce_data.height(tinymce_container.height());
+    tinymce_container.height(mceIframeContainer.height());
     tinymce_data.width(tinymce_container.width());
+    tinymce_data.height(tinymce_container.height());
   } else {
     // Exit fullscreen mode
 
-    // restore size
-    table_container.width(''); // Do not set a width
-    table_container.height(''); // Do not set a width
-    mceIframeContainer.width(''); // Do not set a width
-    mceIframeContainer.height(''); // Do not set a width
-    tinymce_container.width(''); // Do not set a width
-    tinymce_container.height(''); // Do not set a width
-    tinymce_data.width(''); // Do not set a width
+    tinymce_data.width('');
     tinymce_data.height(wiki_tinymce_data_height);
+    tinymce_container.width('');
+    tinymce_container.height('');
+    mceIframeContainer.width('');
 
-    // Attach wiki to real containner
-    mceEditor = $('.' + wiki_temp_class);
-    mceEditor.removeClass(wiki_temp_class);
-    mceEditor.addClass('mceEditor defaultSkin');
-    table_container.appendTo(mceEditor);
-    // Remove class
-    table_container.removeClass('fullscreen');
-    // Hide resize bar
-    $("#data-table  tr.mceLast.statusbar").show();
-    // Remove fake container
-    $(".mceEditor.fake-container").remove();
+    // Resize editor
+    table_container.width('');
+    table_container.height('');
+    form_container.width('');
+    form_container.height(''); 
+
+    // restore size
+    // Do not set a height
+    mceIframeContainer.height('');
+    tinymce_container.height('');
+
     // Show the rest of the content
-    $("#page").show();
+    for (i = to_hide.length - 1; i > 0; i--) {
+        to_hide[i].show();
+    }
+
+    // Move back to page
+    form_container.detach();
+    form_container.appendTo($("#wiki-container"));
+
+    // Remove class
+    form_container.removeClass('fullscreen');
   }
 
   return false;

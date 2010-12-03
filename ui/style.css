@@ -143,9 +143,18 @@ table.docutils.field-list td {
 }
 
 /* Fullscreen */
-div.mceEditor #table-data.fullscreen {
-  width: 100%;
-  height: 100%;
+form.fullscreen {
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+}
+
+form.fullscreen fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
 
 /* Background Save */

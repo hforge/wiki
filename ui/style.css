@@ -142,8 +142,15 @@ table.docutils.field-list td {
   border: none;
 }
 
-/* fullscreen */
+/* Fullscreen */
 div.mceEditor #table-data.fullscreen {
   width: 100%;
   height: 100%;
+}
+
+/* Background Save */
+.defaultSkin span.mce_save label {
+  color: #c00;
+  display: none;
+  margin-left: 20px;
 }

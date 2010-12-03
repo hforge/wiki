@@ -156,6 +156,15 @@
                           <span class="mceIcon mce_fullscreen"></span>
                         </a>
                       </td>
+                      <td>
+                        <a id="data-save" title="Save"
+                          class="mceButton mceButtonEnabled mce_save"
+                          onclick="return wiki_save(this);"
+                          href="javascript:;">
+                          <span class="mceIcon mce_save">
+                            <label>Saved!</label></span>
+                        </a>
+                      </td>
                       <td class="mceToolbarEnd mceToolbarEndListBox mceLast">
                         <span><!-- IE --></span>
                       </td>

@@ -413,3 +413,20 @@ function setup_resize() {
     e.preventDefault();
   });
 }
+
+
+function wiki_save(button) {
+    var form = $(button).parents("form");
+    var url = form.attr("action");
+    $.post(url, form.serialize(),
+        function(data, textStatus, XMLHttpRequest) {
+            if (XMLHttpRequest.status == 200) {
+                var label = $(button).find("label");
+                label.fadeIn(400, function() {
+                    $(this).fadeOut(5000);
+                });
+            } else {
+                alert("Save failed!");
+            }
+        });
+}

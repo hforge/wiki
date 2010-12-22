@@ -35,7 +35,7 @@ from docutils import nodes
 # Import from itools
 from itools.core import merge_dicts
 from itools.database import PhraseQuery
-from itools.datatypes import String, Enumerate, Boolean
+from itools.datatypes import String, Enumerate, Boolean, XMLContent
 from itools.gettext import MSG
 from itools.handlers import checkid, ro_database
 from itools.html import XHTMLFile
@@ -273,7 +273,8 @@ class WikiPage_View(BaseView):
             # Critical
             context.message = ERROR(u'Syntax error: {error}',
                     error=e.message)
-            return XMLParser('<pre>' + resource.handler.to_str() + '</pre>')
+            content = XMLContent(resource.handler.to_str())
+            return '<pre>' + content + '</pre>'
 
         # Decorate the links and resolve them against the published resource
         for node in doctree.traverse(condition=nodes.reference):
@@ -572,7 +573,7 @@ class WikiPage_ToODT(AutoForm):
             msg = MSG(u'<p>Please install <a href="{href}">{name}</a> '
                       u'for Python on the server.</p>')
             msg = msg.gettext(href='http://lpod-project.org/', name='LpOD')
-            return XMLParser(msg.encode('utf_8'))
+            return msg.encode('utf_8')
         # Just to ignore pyflakes warning
         rst2odt
         return AutoForm.GET(self, resource, context)

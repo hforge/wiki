@@ -184,7 +184,6 @@ function wiki_help() {
 
 // Keep wiki sizes
 var wiki_tinymce_data_height = null;
-var wiki_temp_class = 'obPHN5WWVo';
 
 function wiki_fullscreen() {
   // variables

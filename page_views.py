@@ -33,7 +33,7 @@ from docutils.utils import SystemMessage
 from docutils import nodes
 
 # Import from itools
-from itools.core import merge_dicts
+from itools.core import merge_dicts, freeze
 from itools.database import PhraseQuery
 from itools.datatypes import String, Enumerate, Boolean, XMLContent
 from itools.gettext import MSG
@@ -461,8 +461,12 @@ class WikiPage_ToPDF(BaseView):
 class WikiPage_Edit(DBResource_Edit):
 
     template = '/ui/wiki/edit.xml'
-    schema = merge_dicts(DBResource_Edit.schema, data=String)
-    widgets = [timestamp_widget, title_widget]
+    schema = freeze(merge_dicts(
+        DBResource_Edit.schema,
+        data=String))
+    widgets = freeze([
+        timestamp_widget,
+        title_widget])
 
     # No Multilingual
     context_menus = []
@@ -563,7 +567,8 @@ class WikiPage_ToODT(AutoForm):
             if book is not None:
                 ignore_missing_pages = book.get('ignore-missing-pages')
                 return ignore_missing_pages == 'yes'
-        return AutoForm.get_value(self, resource, context, name, datatype)
+        proxy = super(WikiPage_ToODT, self)
+        return proxy.get_value(resource, context, name, datatype)
 
 
     def GET(self, resource, context):
@@ -576,7 +581,8 @@ class WikiPage_ToODT(AutoForm):
             return msg.encode('utf_8')
         # Just to ignore pyflakes warning
         rst2odt
-        return AutoForm.GET(self, resource, context)
+        proxy = super(WikiPage_ToODT, self)
+        return proxy.GET(resource, context)
 
 
     def action(self, resource, context, form):

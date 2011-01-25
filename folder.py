@@ -29,12 +29,11 @@ from ikaaro.registry import register_document_type
 from ikaaro.resource_views import DBResource_Edit
 
 # Import from wiki
-from folder_views import WikiMenu
+from folder_views import WikiMenu, WikiFolder_ImportODT
 from page import WikiPage
 
 
 class WikiFolder(Folder):
-
     class_id = 'WikiFolder'
     class_version = '20071215'
     class_title = MSG(u"Wiki")
@@ -46,6 +45,14 @@ class WikiFolder(Folder):
 
     __fixed_handlers__ = ['FrontPage']
 
+    # User Interface
+    context_menus = [WikiMenu()]
+
+    # Views
+    view = GoToSpecificDocument(specific_document='FrontPage')
+    edit = DBResource_Edit(title=MSG(u"Edit Wiki"))
+    import_odt = WikiFolder_ImportODT()
+
 
     def init_resource(self, **kw):
         Folder.init_resource(self, **kw)
@@ -55,13 +62,6 @@ class WikiFolder(Folder):
 
     def get_document_types(self):
         return [WikiPage, File]
-
-
-    # User Interface
-    context_menus = [WikiMenu()]
-
-    view = GoToSpecificDocument(specific_document='FrontPage')
-    edit = DBResource_Edit(title=MSG(u"Edit Wiki"))
 
 
 

@@ -30,6 +30,11 @@ function insertTags(tagOpen, tagClose, sampleText, target)
     selText = range.text;
     //insert tags
     checkSelectedText();
+    //Hack to handle the headings
+    if (tagOpen == 'heading') {
+        tagOpen = '\n\n';
+        tagClose = '\n' + new Array(selText.length + 1).join(tagClose) + '\n\n';
+    }
     range.text = tagOpen + selText + tagClose;
     //insert link target
     if (isSample == false && target != undefined) {
@@ -72,8 +77,13 @@ function insertTags(tagOpen, tagClose, sampleText, target)
     var startPos = txtarea.selectionStart;
     var endPos = txtarea.selectionEnd;
     selText = txtarea.value.substring(startPos, endPos);
-    //insert tag
     checkSelectedText();
+    //Hack to handle the headings
+    if (tagOpen == 'heading') {
+        tagOpen = '\n\n';
+        tagClose = '\n' + new Array(selText.length + 1).join(tagClose) + '\n\n';
+    }
+    //insert tag
     txtarea.value = txtarea.value.substring(0, startPos)
       + tagOpen + selText + tagClose
       + txtarea.value.substring(endPos, txtarea.value.length);
@@ -142,6 +152,10 @@ function wiki_image() {
   return popup('../;add_image?mode=wiki', 700, 480);
 }
 
+function wiki_import_odt() {
+  return popup('../;import_odt?mode=wiki', 700, 480);
+}
+
 function wiki_table() {
   return insertTags('\n\n===== =====\n', '\n===== =====\n\n',
                     'Cell1 Cell2');
@@ -159,28 +173,39 @@ function wiki_format() {
 function wiki_preformatted() {
   $("#data-formatselect-menu").hide('fast');
   return insertTags('\n\n::\n\n  ', '\n\n',
-                    'Type text not to interpret with identation');
+                    '# Type text not to interpret with indentation\n' +
+                    '  def myfunc(obj):\n' +
+                    '      print "Hello"');
 }
 
 function wiki_heading1() {
   $("#data-formatselect-menu").hide('fast');
-  return insertTags('\n\n=====\n', '\n=====\n\n', 'Title');
+  return insertTags('heading', '#', 'Heading 1 Title');
 }
 
 function wiki_heading2() {
   $("#data-formatselect-menu").hide('fast');
-  return insertTags('\n\n', '\n=====\n\n', 'Title');
+  return insertTags('heading', '=', 'Sub-Heading 2');
 }
 
 function wiki_heading3() {
   $("#data-formatselect-menu").hide('fast');
-  return insertTags('\n\n', '\n-----\n\n', 'Title');
+  return insertTags('heading', '-', 'Sub-Sub-Heading 3');
+}
+
+function wiki_heading4() {
+  $("#data-formatselect-menu").hide('fast');
+  return insertTags('heading', '~', 'Sub-Sub-Sub-Heading 4');
+}
+
+function wiki_heading5() {
+  $("#data-formatselect-menu").hide('fast');
+  return insertTags('heading', '`', 'Sub-Sub-Sub-Sub-Heading 5');
 }
 
 function wiki_help() {
   return popup(';help?popup=1', 600, 400);
 }
-
 
 // Keep wiki sizes
 var wiki_tinymce_data_height = null;
@@ -263,6 +288,7 @@ function wiki_fullscreen() {
 }
 
 
+
 /*
  * Insert image or link from popup
  */
@@ -271,7 +297,10 @@ function select_element(type, value, caption) {
   if (type == 'image') {
       window.opener.insertTags('\n\n.. figure:: ' + value + '\n   :width: 350px\n\n   ',
                                '\n\n', 'Description of `' + value + '`_');
-  } else {
+  } else if (type == 'odt') {
+      window.opener.insertTags('.. book::' + value, '', '\n');
+  }
+  else {
       window.opener.insertTags('`', '`_', value, true);
   }
   window.close();
@@ -424,7 +453,7 @@ function wiki_save(button) {
     $.ajax({
         type: 'POST',
         url: url,
-        data: form.serialize(),
+        data: form.serialize() + '&action=save',
         success: function() {
             var label = $(button).find("label");
             label.fadeIn(400, function() {

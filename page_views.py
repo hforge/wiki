@@ -680,7 +680,7 @@ class WikiPage_ToODT(AutoForm):
                 convert(document, doctree, heading_level=level,
                         skip_toc=True)
             # Fill TOC
-            toc.toc_fill()
+            toc.fill()
         else:
             # Just convert the page as is to ODT
             doctree = resource.get_doctree()

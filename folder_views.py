@@ -43,6 +43,9 @@ from page import WikiPage
 from page_views import ALLOWED_FORMATS
 
 
+MAX_WIDTH = 350
+
+
 #################################################################
 # Private API
 #################################################################
@@ -72,21 +75,19 @@ def _add_image(filename, document, resource):
     # Check the filename is good
     name = checkid(name)
     if name is None:
-        return None
+        return None, None, None
 
     # XXX If the resource exists, we assume it's the good resource
-    if resource.get_resource(name, soft=True) is not None:
-        return name
+    image = resource.get_resource(name, soft=True)
+    if image is None:
+        # Get mimetype / class
+        mimetype = get_mimetype(filename)
+        cls = get_resource_class(mimetype)
+        # Add the image
+        image = resource.make_resource(name, cls, body=data, format=mimetype,
+                filename=filename, extension=a_type)
 
-    # Get mimetype / class
-    mimetype = get_mimetype(filename)
-    cls = get_resource_class(mimetype)
-
-    # Add the image
-    resource.make_resource(name, cls, body=data, format=mimetype,
-            filename=filename, extension=a_type)
-
-    return name
+    return (name,) + image.handler.get_size()
 
 
 
@@ -97,15 +98,18 @@ def _convert_images(content, document, resource):
         if line.startswith(template):
             # Compute the filename (suppress the template)
             filename = line[20:]
-
             # Add the image and compute its name
-            name = _add_image(filename, document, resource)
+            name, width, height = _add_image(filename, document, resource)
             if name is None:
                 continue
-
             # And modify the page
-            result.append('.. figure:: %s' % name)
-            result.append('   :width: 350px')
+            result.append('.. figure:: {name}'.format(name=name))
+            if width <= MAX_WIDTH:
+                result.append('   :width: {width}px'.format(width=width))
+                result.append('   :height: {height}px'.format(height=height))
+            else:
+                result.append('   :width: 350px')
+                # Auto height
         else:
             result.append(line)
 
@@ -142,7 +146,7 @@ def _insert_notes_and_co(lpod_context, content, document, resource):
         for ref, filename in images:
             # Delete 'Pictures/'
             filename = filename[9:]
-            name = _add_image(filename, document, resource)
+            name, width, height = _add_image(filename, document, resource)
             if name is None:
                 continue
             content.append(u'.. %s image:: %s\n\n' % (ref, name))

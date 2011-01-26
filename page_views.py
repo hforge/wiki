@@ -52,12 +52,18 @@ from ikaaro.datatypes import FileDataType
 from ikaaro.autoform import AutoForm, FileWidget, RadioWidget
 from ikaaro.autoform import title_widget, timestamp_widget
 from ikaaro.resource_views import DBResource_Edit
+from ikaaro.text_views import Text_Edit
 from ikaaro.views import ContextMenu
 
 
 figure_style_converter = compile(r'\\begin\{figure\}\[.*?\]')
 ALLOWED_FORMATS = ('application/vnd.oasis.opendocument.text',
         'application/vnd.oasis.opendocument.text-template')
+
+
+ERR_SYNTAX_WARNING = ERROR(u"Syntax error, please check the view for "
+        u"details.")
+ERR_SYNTAX_ERROR = ERROR(u'Syntax error: {error}')
 
 
 def is_external(reference):
@@ -120,6 +126,7 @@ def resolve_images(doctree, resource, context):
 
 class BacklinksMenu(ContextMenu):
     title = MSG(u"Backlinks")
+
 
     def get_items(self):
         context = self.context
@@ -257,7 +264,6 @@ class TemplateList(Enumerate):
 
 
 class WikiPage_View(BaseView):
-
     access = 'is_allowed_to_view'
     title = MSG(u'View')
     icon = 'html.png'
@@ -338,7 +344,6 @@ class WikiPage_View(BaseView):
 
 
 class WikiPage_ToPDF(BaseView):
-
     access = 'is_allowed_to_view'
     title = MSG(u"To PDF")
 
@@ -458,8 +463,7 @@ class WikiPage_ToPDF(BaseView):
 
 
 # TODO Use auto-form
-class WikiPage_Edit(DBResource_Edit):
-
+class WikiPage_Edit(Text_Edit):
     template = '/ui/wiki/edit.xml'
     schema = freeze(merge_dicts(
         DBResource_Edit.schema,
@@ -477,12 +481,15 @@ class WikiPage_Edit(DBResource_Edit):
                '/ui/wiki/javascript.js']
 
 
+    def _get_schema(self, resource, context):
+        return self.schema
+
+
     def get_namespace(self, resource, context):
-        namespace = super(WikiPage_Edit, self).get_namespace(resource,
-                context)
-        schema = self.get_schema(resource, context)
+        proxy = super(WikiPage_Edit, self)
+        namespace = proxy.get_namespace(resource, context)
         namespace['data'] = self.get_value(resource, context, 'data',
-                schema['data'])
+                self.schema['data'])
         return namespace
 
 
@@ -492,42 +499,41 @@ class WikiPage_Edit(DBResource_Edit):
             if data is None:
                 data = resource.handler.to_str()
             return data
-        return super(WikiPage_Edit, self).get_value(resource, context, name,
-                datatype)
+        proxy = super(WikiPage_Edit, self)
+        return proxy.get_value(resource, context, name, datatype)
 
 
     def set_value(self, resource, context, name, form):
+        proxy = super(WikiPage_Edit, self)
         if name == 'data':
-            # Data is assumed to be encoded in UTF-8
-            data = form['data']
-            # Save even if broken
-            resource.handler.load_state_from_string(data)
-
+            proxy.set_value(resource, context, name, form)
             # Warn about syntax errors
             message = None
             try:
                 html = resource.view.GET(resource, context)
-                # Non-critical
-                if 'class="system-message"' in html:
-                    message = ERROR(u"Syntax error, please check the view for "
-                                    u"details.")
             except SystemMessage, e:
                 # Critical
-                message = ERROR(u'Syntax error: {error}', error=e.message)
-            if message:
-                return True
+                message = ERR_SYNTAX_ERROR(error=e.message)
             else:
-                accept = context.accept_language
-                time = format_datetime(datetime.now(), accept=accept)
-                message = messages.MSG_CHANGES_SAVED2(time=time)
-                context.message = message
-                return False
-        return super(WikiPage_Edit, self).set_value(resource, context, name,
-                form)
+                # Non-critical
+                if 'class="system-message"' in html:
+                    message = ERR_SYNTAX_WARNING
+                else:
+                    accept = context.accept_language
+                    time = format_datetime(datetime.now(), accept=accept)
+                    message = messages.MSG_CHANGES_SAVED2(time=time)
+            # Keep it to override context.message later
+            context.wiki_message = message
+            # Save even if broken
+            return False
+        return proxy.set_value(resource, context, name, form)
 
 
     def action_save(self, resource, context, form):
         super(WikiPage_Edit, self).action(resource, context, form)
+        message = getattr(context, 'wiki_message', None)
+        if message is not None:
+            context.message = message
 
 
     def action_save_and_view(self, resource, context, form):
@@ -710,7 +716,6 @@ class WikiPage_ToODT(AutoForm):
 
 
 class WikiPage_Help(STLView):
-
     access = 'is_allowed_to_view'
     title = MSG(u"Help")
     template = '/ui/wiki/help.xml'

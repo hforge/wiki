@@ -259,14 +259,16 @@ class WikiPage(Text):
 
 
     def get_links(self):
-        base = self.get_abspath()
+        base = self.get_canonical_path()
 
-        links = set()
         try:
             doctree = self.get_doctree()
         except SystemMessage:
             # The doctree is in a incoherent state
             return set()
+
+        # Links
+        links = set()
         for node in doctree.traverse(condition=nodes.reference):
             refname = node.get('wiki_name')
             if refname is False:
@@ -290,6 +292,7 @@ class WikiPage(Text):
             path = str(path)
             links.add(path)
 
+        # Images
         for node in doctree.traverse(condition=nodes.image):
             reference = get_reference(node['uri'].encode('utf_8'))
             # Skip external image
@@ -309,17 +312,15 @@ class WikiPage(Text):
         new_data = []
 
         not_uri = 0
-        base = self.parent.get_abspath()
+        base = self.parent.get_canonical_path()
         for segment in links_re.split(old_data):
             not_uri = (not_uri + 1) % 3
             if not not_uri:
                 reference = get_reference(segment)
-
                 # Skip external link
                 if is_external(reference):
                     new_data.append(segment)
                     continue
-
                 # Strip the view
                 path = reference.path
                 if path and path[-1] == ';download':
@@ -327,10 +328,8 @@ class WikiPage(Text):
                     view = '/;download'
                 else:
                     view = ''
-
                 # Resolve the path
                 path = base.resolve(path)
-
                 # Match ?
                 if path == source:
                     segment = str(base.get_pathto(target)) + view

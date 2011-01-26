@@ -24,7 +24,7 @@ from sys import argv
 import docutils
 
 # Import from itools
-from itools.core import get_abspath
+from itools.core import get_abspath, get_version
 
 # Import from ikaaro
 from ikaaro.skins import register_skin
@@ -32,6 +32,9 @@ from ikaaro.skins import register_skin
 # Import from wiki
 from folder import WikiFolder
 
+
+# The version
+__version__ = get_version()
 
 # Register skin
 register_skin('wiki', get_abspath('ui'))

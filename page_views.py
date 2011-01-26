@@ -64,6 +64,16 @@ ALLOWED_FORMATS = ('application/vnd.oasis.opendocument.text',
 ERR_SYNTAX_WARNING = ERROR(u"Syntax error, please check the view for "
         u"details.")
 ERR_SYNTAX_ERROR = ERROR(u'Syntax error: {error}')
+ERR_PDFLATEX_MISSING = ERROR(u"PDF generation failed. Please install the "
+        u"pdflatex binary on the server.")
+ERR_PDF_BOOK = ERROR(u"Books are not exportable to PDF.")
+ERR_PDF_FAILED = ERROR(u'PDF generation failed. See "{dirname}" on the '
+        u'server for debug.')
+ERR_PDF_NOT_FOUND = ERROR(u'PDF generated not found. See "{dirname}" on the '
+        u'server for debug.')
+ERR_NOT_ODT = ERROR(u"{filename} is not an OpenDocument Text.")
+ERR_PAGE_NOT_FOUND = ERROR(u'Page "{uri}" not found.')
+ERR_NO_PAGE_FOUND = ERROR(u"No page found to export.")
 
 
 def is_external(reference):
@@ -277,8 +287,7 @@ class WikiPage_View(BaseView):
             doctree = resource.get_doctree()
         except SystemMessage, e:
             # Critical
-            context.message = ERROR(u'Syntax error: {error}',
-                    error=e.message)
+            context.message = ERR_SYNTAX_ERROR(error=e.message)
             content = XMLContent(resource.handler.to_str())
             return '<pre>' + content + '</pre>'
 
@@ -353,8 +362,7 @@ class WikiPage_ToPDF(BaseView):
         try:
             call(['pdflatex', '-version'])
         except OSError:
-            msg = ERROR(u"PDF generation failed. Please install pdflatex on "
-                    u"the server.")
+            msg = ERR_PDFLATEX_MISSING
             return context.come_back(msg)
 
         doctree = resource.get_doctree()
@@ -370,7 +378,7 @@ class WikiPage_ToPDF(BaseView):
                     settings_overrides=overrides)
         except NotImplementedError, e:
             if str(e).endswith('visiting unknown node type: book'):
-                message = ERROR(u"Books are not exportable to PDF.")
+                message = ERR_PDF_BOOK
                 return context.come_back(message)
             raise
         output = figure_style_converter.sub(r'\\begin{figure}[H]', output)
@@ -435,14 +443,12 @@ class WikiPage_ToPDF(BaseView):
             # Twice for correct page numbering
             call(command, cwd=dirname)
         except OSError:
-            msg = ERROR(u'PDF generation failed. See "{dirname}" on the '
-                    u'server for debug.', dirname=dirname)
+            msg = ERR_PDF_FAILED(dirname=dirname)
             return context.come_back(msg)
 
         pdfname = '%s.pdf' % resource.name
         if not tempdir.exists(pdfname):
-            msg = ERROR(u'PDF generated not found. See "{dirname}" on the '
-                    u'server for debug.', dirname=dirname)
+            msg = ERR_PDF_NOT_FOUND(dirname=dirname)
             return context.come_back(msg)
 
         # Read the file's data
@@ -604,8 +610,7 @@ class WikiPage_ToODT(AutoForm):
         if template_upload is not None:
             filename, mimetype, body = template_upload
             if mimetype not in ALLOWED_FORMATS:
-                context.message = ERROR(u"$filename is not an OpenDocument "
-                        u"Text.", filename=filename)
+                context.message = ERR_NOT_ODT(filename=filename)
             template = odf_get_document(StringIO(body))
         else:
             template_name = form['template']
@@ -639,8 +644,7 @@ class WikiPage_ToODT(AutoForm):
                 cover = parent.get_resource(cover_uri, soft=True)
                 if cover is None:
                     if not form['ignore_missing_pages']:
-                        context.message = ERROR(u'Page "{uri}" not found.',
-                                uri=cover_uri)
+                        context.message = ERR_PAGE_NOT_FOUND(uri=cover_uri)
                         return
                 else:
                     doctree = cover.get_doctree()
@@ -667,11 +671,11 @@ class WikiPage_ToODT(AutoForm):
             try:
                 book.walkabout(visitor)
             except LookupError, uri:
-                context.message = ERROR(u'Page "{uri}" not found.', uri=uri)
+                context.message = ERR_PAGE_NOT_FOUND(uri=uri)
                 return
             pages = visitor.pages
             if not pages:
-                context.message = ERROR(u"No page found to export.")
+                context.message = ERR_NO_PAGE_FOUND
                 return
             # List of links between pages
             known_links = [page.get_canonical_path() for page, _ in pages]

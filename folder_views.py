@@ -35,6 +35,7 @@ from itools.web import ERROR
 from ikaaro.datatypes import FileDataType
 from ikaaro.messages import MSG_BAD_NAME
 from ikaaro.popup import DBResource_AddBase, AddBase_BrowseContent
+from ikaaro.popup import DBResource_AddLink, DBResource_AddImage
 from ikaaro.registry import get_resource_class
 from ikaaro.utils import generate_name
 from ikaaro.views import ContextMenu
@@ -392,7 +393,33 @@ class WikiMenu(ContextMenu):
 
 
 
-class WikiFolder_ImportODT(DBResource_AddBase):
+class WikiFolder_AddBase(DBResource_AddBase):
+
+    def get_scripts(self, context):
+        mode = context.get_form_value('mode')
+        if mode == 'wiki':
+            return ['/ui/wiki/javascript.js']
+        return []
+
+
+
+class WikiFolder_AddLink(WikiFolder_AddBase, DBResource_AddLink):
+
+    def get_page_type(self, mode):
+        """Return the type of page to add corresponding to the mode
+        """
+        if mode == 'wiki':
+            from page import WikiPage
+            return WikiPage
+        raise ValueError, 'Incorrect mode %s' % mode
+
+
+class WikiFolder_AddImage(WikiFolder_AddBase, DBResource_AddImage):
+    pass
+
+
+
+class WikiFolder_ImportODT(WikiFolder_AddBase):
     template = '/ui/wiki/importodt.xml'
     element_to_add = 'odt'
     browse_content_class = AddBase_BrowseContent
@@ -426,13 +453,6 @@ class WikiFolder_ImportODT(DBResource_AddBase):
             'show_external': False,
             'show_insert': False,
             'show_upload': True}
-
-
-    def get_scripts(self, context):
-        mode = context.get_form_value('mode')
-        if mode == 'wiki':
-            return ['/ui/wiki/javascript.js']
-        return []
 
 
     def get_namespace(self, resource, context):

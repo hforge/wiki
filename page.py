@@ -149,6 +149,104 @@ class WikiPage(Text):
         'output_encoding': 'utf-8',
     }
 
+    # Views
+    new_instance = DBResource.new_instance
+    view = WikiPage_View()
+    to_pdf = WikiPage_ToPDF()
+    edit = WikiPage_Edit()
+    to_odt = WikiPage_ToODT()
+    help = WikiPage_Help()
+    help_odt = WikiPage_HelpODT()
+
+
+
+    #######################################################################
+    # Ikaaro API
+    #######################################################################
+    def get_context_menus(self):
+        return [BacklinksMenu()] + self.parent.get_context_menus()
+
+
+    def get_links(self):
+        base = self.get_canonical_path()
+
+        try:
+            doctree = self.get_doctree()
+        except SystemMessage:
+            # The doctree is in a incoherent state
+            return set()
+
+        # Links
+        links = set()
+        for node in doctree.traverse(condition=nodes.reference):
+            refname = node.get('wiki_name')
+            if refname is False:
+                # Wiki link not found
+                title = node['name']
+                path = checkid(title) or title
+                path = base.resolve(path)
+            elif refname:
+                # Wiki link found, "refname" is the path
+                path = base.resolve2(refname)
+            else:
+                # Regular link, include internal ones
+                refuri = node.get('refuri')
+                if refuri is None:
+                    continue
+                reference = get_reference(refuri.encode('utf_8'))
+                # Skip external
+                if is_external(reference):
+                    continue
+                path = base.resolve2(reference.path)
+            path = str(path)
+            links.add(path)
+
+        # Images
+        for node in doctree.traverse(condition=nodes.image):
+            reference = get_reference(node['uri'].encode('utf_8'))
+            # Skip external image
+            if is_external(reference):
+                continue
+            # Resolve the path
+            path = base.resolve(reference.path)
+            path = str(path)
+            links.add(path)
+
+        return links
+
+
+    def update_links(self, source, target,
+                     links_re = compile(r'(\.\. .*?: )(\S*)')):
+        old_data = self.handler.to_str()
+        new_data = []
+
+        not_uri = 0
+        base = self.parent.get_canonical_path()
+        for segment in links_re.split(old_data):
+            not_uri = (not_uri + 1) % 3
+            if not not_uri:
+                reference = get_reference(segment)
+                # Skip external link
+                if is_external(reference):
+                    new_data.append(segment)
+                    continue
+                # Strip the view
+                path = reference.path
+                if path and path[-1] == ';download':
+                    path = path[:-1]
+                    view = '/;download'
+                else:
+                    view = ''
+                # Resolve the path
+                path = base.resolve(path)
+                # Match ?
+                if path == source:
+                    segment = str(base.get_pathto(target)) + view
+            new_data.append(segment)
+        new_data = ''.join(new_data)
+        self.handler.load_state_from_string(new_data)
+        get_context().database.change_resource(self)
+
 
     #######################################################################
     # API
@@ -258,89 +356,8 @@ class WikiPage(Text):
         return doctree.next_node(condition=nodes.book)
 
 
-    def get_links(self):
-        base = self.get_canonical_path()
-
-        try:
-            doctree = self.get_doctree()
-        except SystemMessage:
-            # The doctree is in a incoherent state
-            return set()
-
-        # Links
-        links = set()
-        for node in doctree.traverse(condition=nodes.reference):
-            refname = node.get('wiki_name')
-            if refname is False:
-                # Wiki link not found
-                title = node['name']
-                path = checkid(title) or title
-                path = base.resolve(path)
-            elif refname:
-                # Wiki link found, "refname" is the path
-                path = base.resolve2(refname)
-            else:
-                # Regular link, include internal ones
-                refuri = node.get('refuri')
-                if refuri is None:
-                    continue
-                reference = get_reference(refuri.encode('utf_8'))
-                # Skip external
-                if is_external(reference):
-                    continue
-                path = base.resolve2(reference.path)
-            path = str(path)
-            links.add(path)
-
-        # Images
-        for node in doctree.traverse(condition=nodes.image):
-            reference = get_reference(node['uri'].encode('utf_8'))
-            # Skip external image
-            if is_external(reference):
-                continue
-            # Resolve the path
-            path = base.resolve(reference.path)
-            path = str(path)
-            links.add(path)
-
-        return links
-
-
-    def update_links(self, source, target,
-                     links_re = compile(r'(\.\. .*?: )(\S*)')):
-        old_data = self.handler.to_str()
-        new_data = []
-
-        not_uri = 0
-        base = self.parent.get_canonical_path()
-        for segment in links_re.split(old_data):
-            not_uri = (not_uri + 1) % 3
-            if not not_uri:
-                reference = get_reference(segment)
-                # Skip external link
-                if is_external(reference):
-                    new_data.append(segment)
-                    continue
-                # Strip the view
-                path = reference.path
-                if path and path[-1] == ';download':
-                    path = path[:-1]
-                    view = '/;download'
-                else:
-                    view = ''
-                # Resolve the path
-                path = base.resolve(path)
-                # Match ?
-                if path == source:
-                    segment = str(base.get_pathto(target)) + view
-            new_data.append(segment)
-        new_data = ''.join(new_data)
-        self.handler.load_state_from_string(new_data)
-        get_context().database.change_resource(self)
-
-
     #######################################################################
-    # Update service
+    # Update
     #######################################################################
     def update_20081114(self,
             links_migration_re = compile(r'\.\. figure:: ([^;]*?)(?!;)(\s)'),
@@ -348,22 +365,6 @@ class WikiPage(Text):
         data = self.handler.to_str()
         data = links_migration_re.sub(links_migration_sub, data)
         self.handler.load_state_from_string(data)
-
-
-    #######################################################################
-    # User Interface
-    #######################################################################
-    new_instance = DBResource.new_instance
-    view = WikiPage_View()
-    to_pdf = WikiPage_ToPDF()
-    edit = WikiPage_Edit()
-    to_odt = WikiPage_ToODT()
-    help = WikiPage_Help()
-    help_odt = WikiPage_HelpODT()
-
-
-    def get_context_menus(self):
-        return [BacklinksMenu()] + self.parent.get_context_menus()
 
 
 

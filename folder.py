@@ -30,6 +30,7 @@ from ikaaro.resource_views import DBResource_Edit
 
 # Import from wiki
 from folder_views import WikiMenu, WikiFolder_ImportODT
+from folder_views import WikiFolder_AddLink, WikiFolder_AddImage
 from page import WikiPage
 
 
@@ -51,6 +52,8 @@ class WikiFolder(Folder):
     # Views
     view = GoToSpecificDocument(specific_document='FrontPage')
     edit = DBResource_Edit(title=MSG(u"Edit Wiki"))
+    add_link = WikiFolder_AddLink()
+    add_image = WikiFolder_AddImage()
     import_odt = WikiFolder_ImportODT()
 
 

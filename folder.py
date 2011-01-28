@@ -22,6 +22,7 @@
 from itools.gettext import MSG
 
 # Import from ikaaro
+from ikaaro.access import AccessControl
 from ikaaro.file import File
 from ikaaro.folder import Folder
 from ikaaro.folder_views import GoToSpecificDocument
@@ -34,7 +35,7 @@ from folder_views import WikiFolder_AddLink, WikiFolder_AddImage
 from page import WikiPage
 
 
-class WikiFolder(Folder):
+class WikiFolder(AccessControl, Folder):
     class_id = 'WikiFolder'
     class_version = '20071215'
     class_title = MSG(u"Wiki")
@@ -56,15 +57,69 @@ class WikiFolder(Folder):
     add_image = WikiFolder_AddImage()
     import_odt = WikiFolder_ImportODT()
 
+    # Wiki
+    default_page = 'FrontPage'
 
+
+    #############################################
+    # Folder API
+    #############################################
     def init_resource(self, **kw):
         Folder.init_resource(self, **kw)
         # FrontPage
-        self.make_resource('FrontPage', WikiPage, title={'en': u"Front Page"})
+        self.make_resource(self.default_page, WikiPage,
+                title={'en': u"Front Page"})
 
 
     def get_document_types(self):
         return [WikiPage, File]
+
+
+    #############################################
+    # AccessControl API
+    #############################################
+    def _is_allowed(self, method_name, user, resource, *args, **kwargs):
+        ac = self.parent.get_access_control()
+        if resource is self:
+            # Wiki's security is FrontPage's security
+            resource = self.get_resource(self.default_page)
+        method = getattr(ac, method_name)
+        return method(user, resource, *args, **kwargs)
+
+
+    def is_allowed_to_view(self, user, resource):
+        return self._is_allowed('is_allowed_to_view', user, resource)
+
+    def is_allowed_to_edit(self, user, resource):
+        return self._is_allowed('is_allowed_to_edit', user, resource)
+
+    def is_allowed_to_put(self, user, resource):
+        return self._is_allowed('is_allowed_to_put', user, resource)
+
+    def is_allowed_to_add(self, user, resource, class_id=None):
+        return self._is_allowed('is_allowed_to_add', user, resource,
+                class_id=class_id)
+
+    def is_allowed_to_remove(self, user, resource):
+        return self._is_allowed('is_allowed_to_remove', user, resource)
+
+    def is_allowed_to_copy(self, user, resource):
+        return self._is_allowed('is_allowed_to_copy', user, resource)
+
+    def is_allowed_to_move(self, user, resource):
+        return self._is_allowed('is_allowed_to_move', user, resource)
+
+    def is_allowed_to_trans(self, user, resource, name):
+        return self._is_allowed('is_allowed_to_trans', user, resource, name)
+
+    def is_allowed_to_publish(self, user, resource):
+        return self._is_allowed('is_allowed_to_publish', user, resource)
+
+    def is_allowed_to_retire(self, user, resource):
+        return self._is_allowed('is_allowed_to_retire', user, resource)
+
+    def is_allowed_to_view_folder(self, user, resource):
+        return self._is_allowed('is_allowed_to_view_folder', user, resource)
 
 
 

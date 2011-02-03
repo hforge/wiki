@@ -35,13 +35,15 @@ from folder_views import WikiFolder_AddLink, WikiFolder_AddImage
 from page import WikiPage
 
 
-def is_allowed(name):
+def is_wiki_allowed(name):
+    """WikiFolder is allowed to {name} if FrontPage is.
+    Else default rules apply.
+    """
     def newfunc(self, user, resource, *args, **kwargs):
         ac = self.parent.get_access_control()
-        if resource is self:
-            # Wiki's security is FrontPage's security
-            resource = self.get_resource(self.default_page)
         method = getattr(ac, name)
+        if resource is self:
+            resource = self.get_resource(self.default_page)
         return method(user, resource, *args, **kwargs)
     return newfunc
 
@@ -89,17 +91,17 @@ class WikiFolder(AccessControl, Folder):
     #############################################
     # AccessControl API
     #############################################
-    is_allowed_to_view = is_allowed('is_allowed_to_view')
-    is_allowed_to_edit = is_allowed('is_allowed_to_edit')
-    is_allowed_to_put = is_allowed('is_allowed_to_put')
-    is_allowed_to_add = is_allowed('is_allowed_to_add')
-    is_allowed_to_remove = is_allowed('is_allowed_to_remove')
-    is_allowed_to_copy = is_allowed('is_allowed_to_copy')
-    is_allowed_to_move = is_allowed('is_allowed_to_move')
-    is_allowed_to_trans = is_allowed('is_allowed_to_trans')
-    is_allowed_to_publish = is_allowed('is_allowed_to_publish')
-    is_allowed_to_retire = is_allowed('is_allowed_to_retire')
-    is_allowed_to_view_folder = is_allowed('is_allowed_to_view_folder')
+    is_allowed_to_view = is_wiki_allowed('is_allowed_to_view')
+    is_allowed_to_edit = is_wiki_allowed('is_allowed_to_edit')
+    is_allowed_to_put = is_wiki_allowed('is_allowed_to_put')
+    is_allowed_to_add = is_wiki_allowed('is_allowed_to_add')
+    is_allowed_to_remove = is_wiki_allowed('is_allowed_to_remove')
+    is_allowed_to_copy = is_wiki_allowed('is_allowed_to_copy')
+    is_allowed_to_move = is_wiki_allowed('is_allowed_to_move')
+    is_allowed_to_trans = is_wiki_allowed('is_allowed_to_trans')
+    is_allowed_to_publish = is_wiki_allowed('is_allowed_to_publish')
+    is_allowed_to_retire = is_wiki_allowed('is_allowed_to_retire')
+    is_allowed_to_view_folder = is_wiki_allowed('is_allowed_to_view_folder')
 
 
 

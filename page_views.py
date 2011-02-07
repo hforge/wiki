@@ -210,10 +210,10 @@ def startswith_section(doctree):
 def convert_cover_title(node, context):
     from lpod.rst2odt import convert_paragraph
 
-    level = context['heading-level'] or 1
+    level = context['heading_level'] or 1
     if node.tagname == 'subtitle':
         style = 'Subtitle'
-        context['heading-level'] += 1
+        context['heading_level'] += 1
     else:
         style = ('sub' * (level - 1) + 'title').capitalize()
     context['styles']['paragraph'] = style
@@ -600,8 +600,7 @@ class WikiPage_ToODT(AutoForm):
     def action(self, resource, context, form):
         from lpod.document import odf_get_document
         from lpod.document import odf_new_document_from_type
-        from lpod.rst2odt import rst2odt, convert
-        from lpod.rst2odt import convert_title, convert_methods
+        from lpod.rst2odt import rst2odt, convert, make_context
         from lpod.toc import odf_create_toc
 
         parent = resource.parent
@@ -651,13 +650,13 @@ class WikiPage_ToODT(AutoForm):
                     resolve_references(doctree, resource, context)
                     resolve_images(doctree, resource, context)
                     heading_level = 0 if startswith_section(doctree) else 1
-                    # Override temporarly convert_title
-                    convert_methods['title'] = convert_cover_title
-                    convert_methods['subtitle'] = convert_cover_title
-                    convert(document, doctree, heading_level=heading_level,
-                            skip_toc=True)
-                    convert_methods['title'] = convert_title
-                    del convert_methods['subtitle']
+                    convert_context = make_context(document,
+                            heading_level=heading_level,
+                            skip_toc=True,
+                            # Override temporarly convert_title
+                            convert_title=convert_cover_title,
+                            convert_subtitle=convert_cover_title)
+                    convert(document, doctree, context=convert_context)
             # Global TOC
             language = book.get('language').split('-')[0]
             title = MSG(u"Table of Contents").gettext(language=language)
@@ -693,8 +692,10 @@ class WikiPage_ToODT(AutoForm):
                 if startswith_section(doctree):
                     # convert_section will increment it
                     level -= 1
-                convert(document, doctree, heading_level=level,
+                convert_context = make_context(document,
+                        heading_level=level,
                         skip_toc=True)
+                convert(document, doctree, context=convert_context)
             # Fill TOC
             toc.fill()
         else:

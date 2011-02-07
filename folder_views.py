@@ -179,7 +179,7 @@ def _format_meta(form, template_name, toc_depth, language, document):
     content.append(u'   :language: %s' % language)
 
     # Compute a default filename
-    title = document.get_part('meta').get_title()
+    title = document.get_part('meta').get_title().strip()
     if not title:
         filename, _, _ = form['file']
         filename = checkid(filename)
@@ -295,7 +295,7 @@ def _format_content(resource, document, template_name, max_allowed_level):
 
             # Search for a free WikiPage name
             if not title:
-                title = 'Invalid name'
+                title = u'Invalid name'
             names = resource.get_names()
             link_title, name = generate_title_and_name(title, names)
 
@@ -504,7 +504,8 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         book = u' `%s`_\n%s\n%s' % (cover, meta, links)
 
         # Escape \n for javascript
-        book = book.replace(u'\n', u'\\n').encode('utf-8')
+        # XXX FIX ME: book can have a "&" !
+        book = book.replace(u'\n', u'\\n').replace('&', '-').encode('utf-8')
 
         return book
 

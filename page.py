@@ -72,16 +72,17 @@ class Book(Directive):
     required_arguments = 0
     optional_arguments = 1
     final_argument_whitespace = True
-    option_spec = {'cover': directives.uri,
-                   'template': directives.unchanged,
-                   'ignore-missing-pages': yesno,
-                   'toc-depth': directives.positive_int,
-                   'title': directives.unchanged,
-                   'comments': directives.unchanged,
-                   'subject': directives.unchanged,
-                   'language': language,
-                   'keywords': directives.unchanged,
-                   'filename': directives.unchanged}
+    option_spec = {
+        'cover': directives.uri,
+        'template': directives.unchanged,
+        'ignore-missing-pages': yesno,
+        'toc-depth': directives.positive_int,
+        'title': directives.unchanged,
+        'comments': directives.unchanged,
+        'subject': directives.unchanged,
+        'language': language,
+        'keywords': directives.unchanged,
+        'filename': directives.unchanged}
     has_content = True
 
 

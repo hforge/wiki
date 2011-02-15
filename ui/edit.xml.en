@@ -7,20 +7,6 @@
       <fieldset>
         <legend>${title}</legend>
         <p stl:if="description">${description}</p>
-        <div id="wiki-widgets">
-          <div stl:repeat="widget widgets">
-            <stl:block stl:if="widget/title">
-              <label class="title" for="${widget/name}">${widget/title}</label>
-              <span stl:if="widget/mandatory" class="field-is-missing"
-                title="This field is required">*</span>
-              <span stl:if="widget/tip" title="${widget/tip}">(?)</span>
-              <br/>
-            </stl:block>
-            <span stl:if="widget/error"
-              class="field-error">${widget/error}<br/></span>
-            <p class="widget" stl:repeat="widget widget/widgets">${widget}</p>
-          </div>
-        </div>
         <div class="mceEditor defaultSkin">
           <table cellspacing="0" cellpadding="0" id="data-table"
             class="mceLayout">
@@ -204,6 +190,20 @@
           </table>
           <div id="mcePlaceHolder" class="mcePlaceHolder"
             style="width: 0px; height: 0px; display: none;" />
+        </div>
+        <div id="wiki-widgets">
+          <div stl:repeat="widget widgets">
+            <stl:block stl:if="widget/title">
+              <label class="title" for="${widget/name}">${widget/title}</label>
+              <span stl:if="widget/mandatory" class="field-is-missing"
+                title="This field is required">*</span>
+              <span stl:if="widget/tip" title="${widget/tip}">(?)</span>
+              <br/>
+            </stl:block>
+            <span stl:if="widget/error"
+              class="field-error">${widget/error}<br/></span>
+            <p class="widget" stl:repeat="widget widget/widgets">${widget}</p>
+          </div>
         </div>
         <p id="wiki-buttons">
           <a name="bottom" id="bottom"></a>

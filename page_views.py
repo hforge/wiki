@@ -471,12 +471,10 @@ class WikiPage_ToPDF(BaseView):
 # TODO Use auto-form
 class WikiPage_Edit(Text_Edit):
     template = '/ui/wiki/edit.xml'
-    schema = freeze(merge_dicts(
-        DBResource_Edit.schema,
-        data=String))
-    widgets = freeze([
-        timestamp_widget,
-        title_widget])
+    widgets = freeze(
+        Text_Edit.widgets[:3]
+        # Skip data and file
+        + Text_Edit.widgets[5:])
 
     # No Multilingual
     context_menus = []
@@ -487,15 +485,13 @@ class WikiPage_Edit(Text_Edit):
                '/ui/wiki/javascript.js']
 
 
-    def _get_schema(self, resource, context):
-        return self.schema
-
-
     def get_namespace(self, resource, context):
         proxy = super(WikiPage_Edit, self)
         namespace = proxy.get_namespace(resource, context)
+        schema = self.get_schema(resource, context)
+        datatype = schema['data']
         namespace['data'] = self.get_value(resource, context, 'data',
-                self.schema['data'])
+                datatype)
         return namespace
 
 

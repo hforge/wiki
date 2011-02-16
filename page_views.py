@@ -33,9 +33,9 @@ from docutils.utils import SystemMessage
 from docutils import nodes
 
 # Import from itools
-from itools.core import merge_dicts, freeze
+from itools.core import freeze
 from itools.database import PhraseQuery
-from itools.datatypes import String, Enumerate, Boolean, XMLContent
+from itools.datatypes import Enumerate, Boolean, XMLContent
 from itools.gettext import MSG
 from itools.handlers import checkid, ro_database
 from itools.html import XHTMLFile
@@ -50,8 +50,6 @@ from itools.xml import XMLParser, XMLError
 from ikaaro import messages
 from ikaaro.datatypes import FileDataType
 from ikaaro.autoform import AutoForm, FileWidget, RadioWidget
-from ikaaro.autoform import title_widget, timestamp_widget
-from ikaaro.resource_views import DBResource_Edit
 from ikaaro.text_views import Text_Edit
 from ikaaro.views import ContextMenu
 

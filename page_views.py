@@ -286,7 +286,7 @@ class WikiPage_View(BaseView):
         except SystemMessage, e:
             # Critical
             context.message = ERR_SYNTAX_ERROR(error=e.message)
-            content = XMLContent(resource.handler.to_str())
+            content = XMLContent.encode(resource.handler.to_str())
             return '<pre>' + content + '</pre>'
 
         # Decorate the links and resolve them against the published resource

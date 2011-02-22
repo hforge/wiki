@@ -391,9 +391,9 @@ class WikiMenu(ContextMenu):
         # Namespace
         base = context.get_link(resource)
         return [
-            {'title': resource.get_view(view).title,
-             'href': '%s/;%s' % (base, view)}
-            for view in resource.class_views ]
+            {'title': view.title,
+             'href': '%s/;%s' % (base, name)}
+            for name, view in resource.get_views() ]
 
 
 

@@ -497,7 +497,7 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
 
         # Auto clean the document
         from lpod.cleaner import clean_document
-        document = clean_document(document)
+        document, _ = clean_document(document)
 
         # Make the book
         cover, links, toc_depth = _format_content(resource, document,

@@ -495,6 +495,10 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         from lpod.document import odf_get_document
         document = odf_get_document(StringIO(data))
 
+        # Auto clean the document
+        from lpod.cleaner import clean_document
+        document = clean_document(document)
+
         # Make the book
         cover, links, toc_depth = _format_content(resource, document,
                 template_name, form['max_level'])

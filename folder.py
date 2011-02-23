@@ -63,6 +63,9 @@ class WikiFolder(AccessControl, Folder):
     # User Interface
     context_menus = [WikiMenu()]
 
+    # Hide itws sidebar
+    display_sidebar = False
+
     # Views
     view = GoToSpecificDocument(specific_document='FrontPage')
     edit = DBResource_Edit(title=MSG(u"Edit Wiki"))

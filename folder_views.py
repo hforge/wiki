@@ -19,6 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Import from the Standard Library
+from cgi import escape
 from cStringIO import StringIO
 
 # Import from itools
@@ -222,14 +223,15 @@ def _format_content(resource, document, template_name, max_allowed_level):
     body = document.get_body()
 
     # Create a context for the lpod functions
-    lpod_context = {'document': document,
-                    'footnotes': [],
-                    'endnotes': [],
-                    'annotations': [],
-                    'rst_mode': True,
-                    'img_counter': 0,
-                    'images': [],
-                    'table_level': 0}
+    lpod_context = {
+        'document': document,
+        'footnotes': [],
+        'endnotes': [],
+        'annotations': [],
+        'rst_mode': True,
+        'img_counter': 0,
+        'images': [],
+        'table_level': 0}
 
     # Main loop
     name = None
@@ -505,16 +507,7 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         language = self.get_language(form['language'])
         meta = _format_meta(form, template_name, toc_depth, language,
                 document)
-        book = u' `%s`_\n%s\n%s' % (cover, meta, links)
-
-        # Escape \n for javascript
-        book = book.replace(u'\n', u'\\n')
-        # Replace the XML characters
-        book = book.replace(u'&', u'-').replace(u'<', u'-').replace(u'>', u'-')
-        # Encode in utf-8
-        book = book.encode('utf-8')
-
-        return book
+        return u' `%s`_\n%s\n%s' % (cover, meta, links)
 
 
     def action_upload(self, resource, context, form):
@@ -539,6 +532,7 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         context.add_script(*scripts)
 
         # Build RST Book
-        wiki_book = self.do_import(resource, data, form, template_name)
-        wiki_book = wiki_book.replace("'", "\\'")
-        return self.get_javascript_return(context, wiki_book)
+        book = self.do_import(resource, data, form, template_name)
+        # Escape characters for JavaScript
+        book = escape(book.replace(u"\n", u"\\n").replace(u"'", u"\\'"))
+        return self.get_javascript_return(context, book.encode('utf-8'))

@@ -293,12 +293,19 @@ function wiki_fullscreen() {
  * Insert image or link from popup
  */
 
+function unquote(value) {
+    return (value.
+            replace(/&lt;/g, "<").
+            replace(/&gt;/g, ">").
+            replace(/&amp;/g, "&"));
+}
+
 function select_element(type, value, caption) {
   if (type == 'image') {
       window.opener.insertTags('\n\n.. figure:: ' + value + '\n   :width: 350px\n\n   ',
                                '\n\n', 'Description of `' + value + '`_');
   } else if (type == 'odt') {
-      window.opener.insertTags('.. book::' + value, '', '\n');
+      window.opener.insertTags('.. book::' + unquote(value), '', '\n');
   }
   else {
       window.opener.insertTags('`', '`_', value, true);

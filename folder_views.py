@@ -510,7 +510,7 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         # Escape \n for javascript
         book = book.replace(u'\n', u'\\n')
         # Replace the XML characters
-        book = book.replace('&', '-').replace('<', '-').replace('>', '-')
+        book = book.replace(u'&', u'-').replace(u'<', u'-').replace(u'>', u'-')
         # Encode in utf-8
         book = book.encode('utf-8')
 

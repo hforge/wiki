@@ -508,8 +508,11 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         book = u' `%s`_\n%s\n%s' % (cover, meta, links)
 
         # Escape \n for javascript
-        # XXX FIX ME: book can have a "&" !
-        book = book.replace(u'\n', u'\\n').replace('&', '-').encode('utf-8')
+        book = book.replace(u'\n', u'\\n')
+        # Replace the XML characters
+        book = book.replace('&', '-').replace('<', '-').replace('>', '-')
+        # Encode in utf-8
+        book = book.encode('utf-8')
 
         return book
 

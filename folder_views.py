@@ -19,7 +19,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Import from the Standard Library
-from cgi import escape
 from cStringIO import StringIO
 
 # Import from itools
@@ -534,5 +533,5 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         # Build RST Book
         book = self.do_import(resource, data, form, template_name)
         # Escape characters for JavaScript
-        book = escape(book.replace(u"\n", u"\\n").replace(u"'", u"\\'"))
+        book = book.replace(u"\n", u"\\n").replace(u"'", u"\\'")
         return self.get_javascript_return(context, book.encode('utf-8'))

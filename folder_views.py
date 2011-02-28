@@ -179,12 +179,12 @@ def _format_meta(form, template_name, toc_depth, language, document):
     content.append(u'   :language: %s' % language)
 
     # Compute a default filename
-    title = document.get_part('meta').get_title().strip()
-    if not title:
+    title = document.get_part('meta').get_title()
+    if title is None or not title.strip():
         filename, _, _ = form['file']
         filename = checkid(filename)
     else:
-        filename = checkid(title) + '.odt'
+        filename = checkid(title.strip()) + '.odt'
     content.append(u'   :filename: %s' % filename)
 
     content.append(u'')

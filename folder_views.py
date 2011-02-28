@@ -20,6 +20,7 @@
 
 # Import from the Standard Library
 from cStringIO import StringIO
+from textwrap import fill
 
 # Import from itools
 from itools.core import merge_dicts, freeze
@@ -311,6 +312,9 @@ def _format_content(resource, document, template_name, max_allowed_level):
         # We assume that these elements are direct children of the body
         elif element.get_tag() == 'text:p':
             text = element.get_formatted_text(lpod_context)
+
+            # Wrap the text
+            text = fill(text, width=80, break_long_words=False) + '\n'
 
             # Search Title/Subtitle also in the hierarchy
             style = element.get_style()

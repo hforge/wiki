@@ -307,11 +307,18 @@ def _format_content(resource, document, template_name, max_allowed_level):
             last_level = level
             links += u'   ' * level + u'- `' + link_title + u'`_\n'
 
-        # Search for Title and Subtitle (usefull for the cover).
+        # Search for Title and Subtitle (useful for the cover).
         # We assume that these elements are direct children of the body
         elif element.get_tag() == 'text:p':
             text = element.get_formatted_text(lpod_context)
+
+            # Search Title/Subtitle also in the hierarchy
             style = element.get_style()
+            while style and style not in ('Title', 'Subtitle'):
+                style = document.get_style('paragraph', style)
+                style = style.get_parent_style()
+
+            # Convert Title/Subtitle in "wiki" title
             if style and style in ('Title', 'Subtitle') and text.strip():
                 text = text.replace('\n', ' ').strip()
                 content.append('\n' + text + '\n')

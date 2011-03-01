@@ -118,7 +118,9 @@ class Book(Directive):
             metadata.append('  template: ')
             meta_node = nodes.literal_block('Book Metadata',
                                             '\n'.join(metadata))
-            meta_node.append(nodes.reference(refuri=template, text=template))
+            meta_node.append(nodes.reference(refuri=template, text=template,
+                                             name=template,
+                                             wiki_template=True))
         else:
             meta_node = nodes.literal_block('Book Metadata',
                                             '\n'.join(metadata))
@@ -286,7 +288,11 @@ class WikiPage(Text):
         prefix = self.get_pathto(self.parent)
         title = node['name']
         title_encoded = title.encode('utf_8')
-        params = {'type': self.__class__.__name__,
+        if node.attributes.get('wiki_template'):
+            new_type = 'application/vnd.oasis.opendocument.text'
+        else:
+            new_type = self.__class__.__name__
+        params = {'type': new_type,
                   'title': title_encoded,
                   'name': checkid(title) or title_encoded}
         refuri = "%s/;new_resource?%s" % (prefix,

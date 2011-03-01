@@ -20,7 +20,6 @@
 
 # Import from the Standard Library
 from cStringIO import StringIO
-from textwrap import fill
 
 # Import from itools
 from itools.core import merge_dicts, freeze
@@ -140,7 +139,7 @@ def _insert_notes_and_co(lpod_context, content, document, resource):
         # Reset
         lpod_context['annotations'] = []
 
-    # Insert the images ref after a table
+    # Insert the images ref
     images = lpod_context['images']
     if images:
         content.append(u'\n')
@@ -231,7 +230,7 @@ def _format_content(resource, document, template_name, max_allowed_level):
         'rst_mode': True,
         'img_counter': 0,
         'images': [],
-        'table_level': 0}
+        'no_img_level': 0}
 
     # Main loop
     name = None
@@ -312,9 +311,6 @@ def _format_content(resource, document, template_name, max_allowed_level):
         # We assume that these elements are direct children of the body
         elif element.get_tag() == 'text:p':
             text = element.get_formatted_text(lpod_context)
-
-            # Wrap the text
-            text = fill(text, width=80, break_long_words=False) + '\n'
 
             # Search Title/Subtitle also in the hierarchy
             style = element.get_style()

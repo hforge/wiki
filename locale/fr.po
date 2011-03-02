@@ -1,0 +1,827 @@
+# translation of fr.po to
+# Belmar-Letelier <luis@in-girum.net>, 2003.
+# J. David Ibáñez <jdavid@itaapy.com>, 2003, 2004.
+# Taverne Sylvain <sylvain@itaapy.com>, 2007.
+# Obein Henry <henry@itaapy.com>, 2007.
+# David Versmisse <david.versmisse@itaapy.com>, 2009.
+# Hervé Cauwelier <herve@itaapy.com>, 2005, 2007, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-02 11:03+CET\n"
+"PO-Revision-Date: 2010-10-27 16:38+0100\n"
+"Last-Translator: David Versmisse <david.versmisse@itaapy.com>\n"
+"Language-Team: Itaapy\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Virtaal 0.5.2\n"
+
+#: ../folder_views.py:178
+msgid "   :%s: %s"
+msgstr ""
+
+#: ../folder_views.py:188
+msgid "   :filename: %s"
+msgstr ""
+
+#: ../folder_views.py:176
+msgid "   :ignore-missing-pages: no"
+msgstr ""
+
+#: ../folder_views.py:179
+#, fuzzy
+msgid "   :language: %s"
+msgstr ":language:"
+
+#: ../folder_views.py:175
+#, fuzzy
+msgid "   :template: %s"
+msgstr "Choisissez un modèle :"
+
+#: ../folder_views.py:174
+#, fuzzy
+msgid "   :toc-depth: %s"
+msgstr ""
+"`page-de-couverture`_\n"
+"   :toc-depth:"
+
+#: ../folder_views.py:516
+#, fuzzy
+msgid ""
+" `%s`_\n"
+"%s\n"
+"%s"
+msgstr ""
+"\n"
+"\n"
+"%s\n"
+"\n"
+"%s"
+
+#: ../folder_views.py:526
+#, fuzzy
+msgid "\"%s\" is not an OpenDocument Text"
+msgstr "$filename n'est pas un texte OpenDocument"
+
+#: ../page_views.py:185
+msgid "#1.%s|outline"
+msgstr "#1.%s|outline"
+
+#: ../folder_views.py:61
+msgid "%s (%d)"
+msgstr ""
+
+#: ../folder_views.py:306
+msgid "- [unknown title]\n"
+msgstr ""
+
+#: ../folder_views.py:308
+msgid "- `"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:52
+msgctxt "pre"
+msgid ".."
+msgstr ".."
+
+#: ../folder_views.py:152
+msgid ""
+".. %s image:: %s\n"
+"\n"
+msgstr ""
+
+#: ../folder_views.py:127
+msgid ".. [#] %s\n"
+msgstr ""
+
+#: ../folder_views.py:164
+msgid ".. [*] %s\n"
+msgstr ""
+
+#: ../ui/importodt.xml.en:128
+msgctxt "option"
+msgid "1"
+msgstr ""
+
+#: ../ui/importodt.xml.en:129
+msgctxt "option"
+msgid "2"
+msgstr ""
+
+#: ../ui/importodt.xml.en:130
+msgctxt "option"
+msgid "3"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:53
+#, fuzzy
+msgctxt "pre"
+msgid ""
+"3\n"
+"   :template:"
+msgstr ""
+"3\n"
+"   :title:"
+
+#: ../ui/importodt.xml.en:131
+msgctxt "option"
+msgid "4"
+msgstr ""
+
+#: ../ui/importodt.xml.en:132
+#, fuzzy
+msgctxt "option"
+msgid "5"
+msgstr "5"
+
+#: ../ui/help_odt.xml.en:57
+msgctxt "pre"
+msgid ":comments:"
+msgstr ":comments:"
+
+#: ../ui/help_odt.xml.en:62
+#, fuzzy
+msgctxt "pre"
+msgid ":filename:"
+msgstr "Nom de fichier"
+
+#: ../ui/help_odt.xml.en:60
+msgctxt "pre"
+msgid ":language:"
+msgstr ":language:"
+
+#: ../ui/help_odt.xml.en:59
+msgctxt "pre"
+msgid ":subject:"
+msgstr ":subject:"
+
+#: ../ui/importodt.xml.en:49
+msgctxt "link"
+msgid "<g id='10'>${x/short_title}</g> /"
+msgstr "<g id='10'>${x/short_title}</g> /"
+
+#: ../ui/importodt.xml.en:28
+#, fuzzy
+msgctxt "link"
+msgid ""
+"<g id='4'>Browse</g>  <g id='5'>External Link</g>  <g id='6'>Insert</g>  <g "
+"id='7'>Upload</g>"
+msgstr ""
+"<g id='2'>Parcourir</g>  <g id='3'>Lien Externe</g>  <g id='4'>Insérer</g>  "
+"<g id='5'>Importer</g>"
+
+#: ../ui/edit.xml.en:197
+#, fuzzy
+msgctxt "label"
+msgid "<g id='46'>${widget/title}</g>  <g id='47'>*</g>  <g id='48'>(?)</g>"
+msgstr "<g id='1'>${widget/title}</g>  <g id='2'>*</g>  <g id='3'>(?)</g>"
+
+#: ../ui/edit.xml.en:210
+#, fuzzy
+msgctxt "button"
+msgid "<g id='53'>Save</g>  <g id='54'>Save &amp; View</g>"
+msgstr "<g id='44'>Sauvegarder</g>  <g id='45'>Sauvegarder &amp; voir</g>"
+
+#: ../page_views.py:584
+msgid ""
+"<p>Please install <a href=\"{href}\">{name}</a> for Python on the server.</p>"
+msgstr ""
+"<p>Veuillez installer <a href=\"{href}\">{name}</a> pour Python sur le "
+"serveur.</p>"
+
+#: ../ui/help_odt.xml.en:29
+msgctxt "paragraph"
+msgid ""
+"A template is simply an ODT file that is emptied from its previous content "
+"and filled with the new content."
+msgstr ""
+"Un modèle est simplement un fichier ODT qui a été vidé de son précédent "
+"contenu et rempli avec le nouveau."
+
+#: ../ui/help_odt.xml.en:77
+msgctxt "li"
+msgid "Any other content in this page will be ignored."
+msgstr "Tout autre contenu dans cette page sera ignoré."
+
+#: ../page_views.py:136
+msgid "Backlinks"
+msgstr "Rétroliens"
+
+#: ../ui/edit.xml.en:24
+msgctxt "title attribute"
+msgid "Bold"
+msgstr "Gras"
+
+#: ../page_views.py:67
+msgid "Books are not exportable to PDF."
+msgstr ""
+
+#: ../ui/importodt.xml.en:56
+msgctxt "table cell"
+msgid "Browse Content"
+msgstr "Parcourir"
+
+#: ../ui/importodt.xml.en:43
+#, fuzzy
+msgctxt "heading"
+msgid "Browse and insert an ODT from the workspace"
+msgstr ""
+"Parcourir l'application et insérer une image depuis l'espace de travail"
+
+#: ../page_views.py:555
+msgid "Choose a template:"
+msgstr "Choisissez un modèle :"
+
+#: ../ui/help_odt.xml.en:35
+msgctxt "paragraph"
+msgid "Click here to <g id='10'>upload an ODT</g>."
+msgstr "Cliquez ici pour <g id='10'>déposer un ODT</g>."
+
+#: ../ui/help_odt.xml.en:57
+msgctxt "pre"
+msgid "Comments..."
+msgstr "Commentaires..."
+
+#: ../ui/importodt.xml.en:107
+#, fuzzy
+msgctxt "label"
+msgid "Comments:"
+msgstr "Commentaire :"
+
+#: ../folder.py:55
+msgid "Container for a wiki"
+msgstr "Conteneur de wiki"
+
+#: ../page_views.py:561
+msgid "Convert"
+msgstr "Convertir"
+
+#: ../folder_views.py:204 ../folder_views.py:237
+msgid "Cover"
+msgstr ""
+
+#: ../folder_views.py:202
+msgid "Cover \"%s\""
+msgstr ""
+
+#: ../ui/help_odt.xml.en:74
+msgctxt "li"
+msgid "Cover titles are treated as main title and subtitle."
+msgstr ""
+"Les titres de couverture sont traités comme le titre principal et le sous-"
+"titre."
+
+#: ../ui/help_odt.xml.en:45
+msgctxt "paragraph"
+msgid "Default styles are created if they don't exist."
+msgstr "Des styles par défaut sont créés si aucun existe."
+
+#: ../ui/help_odt.xml.en:42
+msgctxt "heading"
+msgid "Definition Lists"
+msgstr "Listes de définition"
+
+#: ../ui/help_odt.xml.en:12
+msgctxt "link"
+msgid "Definition Lists"
+msgstr "Listes de définition"
+
+#: ../ui/help_odt.xml.en:43
+msgctxt "paragraph"
+msgid "Definition lists are converted to styles paragraphs."
+msgstr "Les listes de définition sont converties en styles de paragraphe."
+
+#: ../ui/importodt.xml.en:96
+#, fuzzy
+msgctxt "heading"
+msgid "Document metadata:"
+msgstr "Gestion de documents."
+
+#: ../folder.py:71
+msgid "Edit Wiki"
+msgstr "Modifier le wiki"
+
+#: ../ui/help_odt.xml.en:39
+msgctxt "paragraph"
+msgid "Existing URLs remain untouched."
+msgstr "Les URL existantes ne sont pas modifiées."
+
+#: ../ui/edit.xml.en:93
+msgctxt "link"
+msgid "Format"
+msgstr "Formatage"
+
+#: ../ui/edit.xml.en:235
+msgctxt "span"
+msgid "Format"
+msgstr "Format"
+
+#: ../ui/edit.xml.en:235
+msgctxt "title attribute"
+msgid "Format"
+msgstr "Format"
+
+#: ../folder.py:87
+msgid "Front Page"
+msgstr "Accueil"
+
+#: ../ui/help_odt.xml.en:47
+msgctxt "heading"
+msgid "Generating a book"
+msgstr "Générer un livre"
+
+#: ../ui/help_odt.xml.en:13
+msgctxt "link"
+msgid "Generating a book"
+msgstr "Générer un livre"
+
+#: ../ui/edit.xml.en:252
+msgctxt "span"
+msgid "Heading 1"
+msgstr "Titre 1"
+
+#: ../ui/edit.xml.en:252
+msgctxt "title attribute"
+msgid "Heading 1"
+msgstr "Titre 1"
+
+#: ../ui/edit.xml.en:260
+msgctxt "span"
+msgid "Heading 2"
+msgstr "Titre 2"
+
+#: ../ui/edit.xml.en:260
+msgctxt "title attribute"
+msgid "Heading 2"
+msgstr "Titre 2"
+
+#: ../ui/edit.xml.en:268
+msgctxt "span"
+msgid "Heading 3"
+msgstr "Titre 3"
+
+#: ../ui/edit.xml.en:268
+msgctxt "title attribute"
+msgid "Heading 3"
+msgstr "Titre 3"
+
+#: ../page_views.py:719
+msgid "Help"
+msgstr "Aide"
+
+#: ../ui/edit.xml.en:134
+msgctxt "title attribute"
+msgid "Help"
+msgstr "Aide"
+
+#: ../ui/help_odt.xml.en:5
+msgctxt "heading"
+msgid "Help on ODT Export"
+msgstr "Aide sur l'export ODT"
+
+#: ../page_views.py:560
+msgid "Ignore missing pages"
+msgstr ""
+
+#: ../ui/importodt.xml.en:7
+#, fuzzy
+msgctxt "title"
+msgid "Import ODT"
+msgstr "Importer"
+
+#: ../ui/edit.xml.en:145
+#, fuzzy
+msgctxt "title attribute"
+msgid "Import ODT"
+msgstr "Importer"
+
+#: ../ui/edit.xml.en:65
+msgctxt "title attribute"
+msgid "Insert image"
+msgstr "Insérer une image"
+
+#: ../ui/edit.xml.en:58
+msgctxt "title attribute"
+msgid "Insert link"
+msgstr "Insérer un lien"
+
+#: ../ui/edit.xml.en:75
+msgctxt "title attribute"
+msgid "Insert table"
+msgstr "Insérer un tableau"
+
+#: ../ui/help_odt.xml.en:18
+msgctxt "li"
+msgid "Install <g id='7'>lpOD</g> on the server."
+msgstr "Installez <g id='7'>LpOD</g> sur le serveur."
+
+#: ../folder_views.py:299
+#, fuzzy
+msgid "Invalid name"
+msgstr "Dates invalides."
+
+#: ../ui/edit.xml.en:31
+msgctxt "title attribute"
+msgid "Italic"
+msgstr "Italique"
+
+#: ../ui/help_odt.xml.en:61
+msgctxt "pre"
+msgid "Keyword1, Keyword2..."
+msgstr "mot-clé 1, mot-clé 2..."
+
+#: ../ui/importodt.xml.en:111
+#, fuzzy
+msgctxt "label"
+msgid "Keywords:"
+msgstr "Mots clefs"
+
+#: ../ui/importodt.xml.en:117
+#, fuzzy
+msgctxt "label"
+msgid "Language:"
+msgstr "Langues"
+
+#: ../ui/edit.xml.en:126
+msgctxt "title attribute"
+msgid "Large Edit Text"
+msgstr "Taille d'édition plus grande"
+
+#: ../ui/help_odt.xml.en:38
+#, fuzzy
+msgctxt "heading"
+msgid "Links"
+msgstr "Liens"
+
+#: ../ui/help_odt.xml.en:11
+msgctxt "link"
+msgid "Links"
+msgstr "Liens"
+
+#: ../ui/help_odt.xml.en:76
+msgctxt "li"
+msgid "Links to included pages will be turned into internal anchors."
+msgstr ""
+"Les liens vers les pages inclues seront remplacés par des ancres internes."
+
+#: ../ui/help_odt.xml.en:39
+msgctxt "paragraph"
+msgid "Links will be expanded to a URL and point to this website."
+msgstr "Les liens seront étendus à une URL pointant vers ce site web."
+
+#: ../ui/importodt.xml.en:47
+msgctxt "label"
+msgid "Location:"
+msgstr "Emplacement :"
+
+#: ../ui/importodt.xml.en:125
+msgctxt "label"
+msgid "Max heading level to split:"
+msgstr ""
+
+#: ../ui/edit.xml.en:118
+msgctxt "title attribute"
+msgid "Medium Edit Text"
+msgstr "Taille d'édition moyenne"
+
+#: ../page_views.py:74
+msgid "No page found to export."
+msgstr "Aucune page à exporter."
+
+#: ../page_views.py:747
+msgid "ODT Help"
+msgstr "Aide ODT"
+
+#: ../ui/help_odt.xml.en:23
+msgctxt "paragraph"
+msgid ""
+"On any page, click on the <g id='8'>To ODT</g> tab to acccess this feature."
+msgstr ""
+"Depuis une page, cliquez sur l'onglet <g id='8'>Export ODT</g> pour accéder "
+"à cette fonctionnalité."
+
+#: ../ui/help_odt.xml.en:58
+msgctxt "pre"
+msgid "On multiple lines..."
+msgstr "Sur plusieurs lignes..."
+
+#: ../ui/help_odt.xml.en:73
+msgctxt "li"
+msgid "Optional book title is a link to the cover page."
+msgstr "Le titre optionnel du livre est un lien vers la page de couverture."
+
+#: ../page_views.py:558
+msgid "Or provide another ODT as a template:"
+msgstr "Ou fournissez un autre ODT comme modèle :"
+
+#: ../ui/edit.xml.en:48
+msgctxt "title attribute"
+msgid "Ordered list"
+msgstr "Liste ordonnée"
+
+#: ../page_views.py:70
+msgid "PDF generated not found. See \"{dirname}\" on the server for debug."
+msgstr "PDF généré non trouvé. Voir « {dirname} » sur le serveur."
+
+#: ../page_views.py:65
+#, fuzzy
+msgid ""
+"PDF generation failed. Please install the pdflatex binary on the server."
+msgstr ""
+"La génération du PDF a échoué. Veuillez installer pdflatex sur le serveur."
+
+#: ../page_views.py:68
+msgid "PDF generation failed. See \"{dirname}\" on the server for debug."
+msgstr "La génération du PDF a échoué. Voir « {dirname} » sur le serveur."
+
+#: ../page_views.py:73
+msgid "Page \"{uri}\" not found."
+msgstr "Page « {uri} » non trouvée."
+
+#: ../ui/help_odt.xml.en:75
+msgctxt "li"
+msgid "Pages listed as a subitem will see their title level incremented."
+msgstr ""
+"Les pages dans des sous-listes verront leur niveau de titre incrémenté."
+
+#: ../ui/edit.xml.en:244
+msgctxt "span"
+msgid "Preformatted"
+msgstr "Préformaté"
+
+#: ../ui/edit.xml.en:243
+msgctxt "title attribute"
+msgid "Preformatted"
+msgstr "Préformaté"
+
+#: ../ui/help_odt.xml.en:16
+msgctxt "heading"
+msgid "Prerequisites"
+msgstr "Pré-requis"
+
+#: ../ui/help_odt.xml.en:8
+msgctxt "link"
+msgid "Prerequisites"
+msgstr "Pré-requis"
+
+#: ../ui/edit.xml.en:160
+#, fuzzy
+msgctxt "title attribute"
+msgid "Save"
+msgstr "Sauvegarder"
+
+#: ../ui/edit.xml.en:165
+#, fuzzy
+msgctxt "label"
+msgid "Saved!"
+msgstr "Sauvegarder"
+
+#: ../ui/importodt.xml.en:57
+#, fuzzy
+msgctxt "table cell"
+msgid "Select ODT"
+msgstr "Sélectionner le tableau"
+
+#: ../ui/edit.xml.en:110
+msgctxt "title attribute"
+msgid "Small Edit Text"
+msgstr "Taille d'édition plus petite"
+
+#: ../ui/help_odt.xml.en:30
+msgctxt "paragraph"
+msgid "Styles, headers and footers are preserved."
+msgstr "Les styles, en-têtes et pieds de pages sont préservés."
+
+#: ../ui/help_odt.xml.en:59
+msgctxt "pre"
+msgid "Subject..."
+msgstr "Sujet..."
+
+#: ../ui/importodt.xml.en:103
+#, fuzzy
+msgctxt "label"
+msgid "Subject:"
+msgstr ":subject:"
+
+#: ../page_views.py:62
+msgid "Syntax error, please check the view for details."
+msgstr "Erreur de syntaxe, merci de vérifier la vue pour plus de détails."
+
+#: ../page_views.py:64
+msgid "Syntax error: {error}"
+msgstr "Erreur de syntaxe : {error}"
+
+#: ../page_views.py:656
+msgid "Table of Contents"
+msgstr "Table des matières"
+
+#: ../ui/help_odt.xml.en:26
+#, fuzzy
+msgctxt "heading"
+msgid "Template"
+msgstr "Modèle"
+
+#: ../ui/help_odt.xml.en:10
+msgctxt "link"
+msgid "Template"
+msgstr "Modèle"
+
+#: ../ui/help_odt.xml.en:71
+msgctxt "paragraph"
+msgid "The book has some nice behaviour:"
+msgstr "Le livre a un comportement intelligent :"
+
+#: ../ui/help_odt.xml.en:31
+msgctxt "emphasis"
+msgid "The original document is not modified in any way."
+msgstr "Le document original ne sera modifié en aucune façon."
+
+#: ../ui/help_odt.xml.en:43
+msgctxt "paragraph"
+msgid ""
+"The term style is named \"Definition List Term\" and the definition style is "
+"named \"Definition List Definition\"."
+msgstr ""
+"Le style du terme est « Definition List Term » et le style de la définition "
+"est « Definition List Definition »."
+
+#: ../ui/edit.xml.en:198
+msgctxt "title attribute"
+msgid "This field is required"
+msgstr "Le champ est obligatoire"
+
+#: ../ui/help_odt.xml.en:56
+msgctxt "pre"
+msgid "Title..."
+msgstr "Titre..."
+
+#: ../ui/importodt.xml.en:99
+msgctxt "label"
+msgid "Title:"
+msgstr "Titre :"
+
+#: ../page_views.py:551
+msgid "To ODT"
+msgstr "Export ODT"
+
+#: ../page_views.py:355
+msgid "To PDF"
+msgstr "Export PDF"
+
+#: ../ui/edit.xml.en:152
+msgctxt "title attribute"
+msgid "Toggle fullscreen mode"
+msgstr ""
+
+#: ../ui/edit.xml.en:41
+msgctxt "title attribute"
+msgid "Unordered list"
+msgstr "Liste à puces"
+
+#: ../ui/importodt.xml.en:139
+msgctxt "button"
+msgid "Upload"
+msgstr "Importer"
+
+#: ../folder_views.py:453
+msgid "Upload an ODT to import it:"
+msgstr ""
+
+#: ../ui/importodt.xml.en:89
+msgctxt "heading"
+msgid "Upload an ODT to import it:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:22
+msgctxt "heading"
+msgid "Usage"
+msgstr "Utilisation"
+
+#: ../ui/help_odt.xml.en:9
+msgctxt "link"
+msgid "Usage"
+msgstr "Utilisation"
+
+#: ../page_views.py:276
+msgid "View"
+msgstr "Voir"
+
+#: ../folder.py:54 ../folder_views.py:391
+msgid "Wiki"
+msgstr "Wiki"
+
+#: ../page.py:148
+msgid "Wiki Page"
+msgstr "Page de wiki"
+
+#: ../page.py:149
+#, fuzzy
+msgid "Wiki contents"
+msgstr "${contents}"
+
+#: ../ui/help_odt.xml.en:27
+msgctxt "paragraph"
+msgid "You can choose a template to write the exported document in."
+msgstr "Vous pouvez choisir un modèle dans lequel exporter le document."
+
+#: ../ui/help_odt.xml.en:34
+msgctxt "paragraph"
+msgid ""
+"You can choose an ODT file on your disk or select an ODT previously uploaded "
+"into the wiki."
+msgstr ""
+"Vous pouvez choisir un fichier ODT de votre ordinateur ou sélectionner un "
+"ODT précédemment importé dans le wiki."
+
+#: ../ui/help_odt.xml.en:48
+msgctxt "paragraph"
+msgid "You can export several wiki pages into a single ODT."
+msgstr "Vous pouvez exporter plusieurs pages de wiki dans un seul ODT."
+
+#: ../ui/help_odt.xml.en:48
+msgctxt "paragraph"
+msgid "You need to create a new page with a structure like this:"
+msgstr "Vous devez créer une page avec une structure comme celle-ci :"
+
+#: ../folder_views.py:308
+msgid "`_\n"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:52
+msgctxt "pre"
+msgid ""
+"`cover-page`_\n"
+"   :toc-depth:"
+msgstr ""
+"`page-de-couverture`_\n"
+"   :toc-depth:"
+
+#: ../ui/help_odt.xml.en:52
+msgctxt "pre"
+msgid "book::"
+msgstr "book::"
+
+#: ../ui/help_odt.xml.en:60
+msgctxt "pre"
+msgid ""
+"fr-FR\n"
+"   :keywords:"
+msgstr ""
+"fr-FR\n"
+"   :keywords:"
+
+#: ../page_views.py:630
+msgid "ikaaro.wiki to ODT"
+msgstr "ikaaro.wiki vers ODT"
+
+#: ../page_views.py:262
+msgid "lpoD default template"
+msgstr "Gabarit par défaut de LpOD"
+
+#: ../ui/help_odt.xml.en:55
+#, fuzzy
+msgctxt "pre"
+msgid ""
+"no\n"
+"   :title:"
+msgstr ""
+"3\n"
+"   :title:"
+
+#: ../ui/help_odt.xml.en:62
+#, fuzzy
+msgctxt "pre"
+msgid ""
+"output.odt\n"
+"\n"
+"   - `a-page`_\n"
+"   - `another-page`_\n"
+"      - `a-subpage`_\n"
+"      - `another-subpage`_\n"
+"   - `a-last-page`_"
+msgstr ""
+"- `une-page`_\n"
+"   - `une-autre-page`_\n"
+"      - `une-sous-page`_\n"
+"      - `une autre-sous-page`_\n"
+"   - `une dernière-page`_"
+
+#: ../ui/help_odt.xml.en:54
+msgctxt "pre"
+msgid ""
+"template-name\n"
+"   :ignore-missing-pages:"
+msgstr ""
+
+#: ../page_views.py:72
+#, fuzzy
+msgid "{filename} is not an OpenDocument Text."
+msgstr "$filename n'est pas un texte OpenDocument"
+
+#: ../page_views.py:266
+msgid "{title} (<a href=\"{link}\">view</a>)"
+msgstr "{title} (<a href=\"{link}\">voir</a>)"

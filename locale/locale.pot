@@ -1,0 +1,723 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-03-02 11:03+CET\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../folder_views.py:178
+msgid "   :%s: %s"
+msgstr ""
+
+#: ../folder_views.py:188
+msgid "   :filename: %s"
+msgstr ""
+
+#: ../folder_views.py:176
+msgid "   :ignore-missing-pages: no"
+msgstr ""
+
+#: ../folder_views.py:179
+msgid "   :language: %s"
+msgstr ""
+
+#: ../folder_views.py:175
+msgid "   :template: %s"
+msgstr ""
+
+#: ../folder_views.py:174
+msgid "   :toc-depth: %s"
+msgstr ""
+
+#: ../folder_views.py:516
+msgid " `%s`_\n%s\n%s"
+msgstr ""
+
+#: ../folder_views.py:526
+msgid "\"%s\" is not an OpenDocument Text"
+msgstr ""
+
+#: ../page_views.py:185
+msgid "#1.%s|outline"
+msgstr ""
+
+#: ../folder_views.py:61
+msgid "%s (%d)"
+msgstr ""
+
+#: ../folder_views.py:306
+msgid "- [unknown title]\n"
+msgstr ""
+
+#: ../folder_views.py:308
+msgid "- `"
+msgstr ""
+
+#: ../folder_views.py:152
+msgid ".. %s image:: %s\n\n"
+msgstr ""
+
+#: ../folder_views.py:127
+msgid ".. [#] %s\n"
+msgstr ""
+
+#: ../folder_views.py:164
+msgid ".. [*] %s\n"
+msgstr ""
+
+#: ../page_views.py:584
+msgid "<p>Please install <a href=\"{href}\">{name}</a> for Python on the server.</p>"
+msgstr ""
+
+#: ../page_views.py:136
+msgid "Backlinks"
+msgstr ""
+
+#: ../page_views.py:67
+msgid "Books are not exportable to PDF."
+msgstr ""
+
+#: ../page_views.py:555
+msgid "Choose a template:"
+msgstr ""
+
+#: ../folder.py:55
+msgid "Container for a wiki"
+msgstr ""
+
+#: ../page_views.py:561
+msgid "Convert"
+msgstr ""
+
+#: ../folder_views.py:204
+#: ../folder_views.py:237
+msgid "Cover"
+msgstr ""
+
+#: ../folder_views.py:202
+msgid "Cover \"%s\""
+msgstr ""
+
+#: ../folder.py:71
+msgid "Edit Wiki"
+msgstr ""
+
+#: ../folder.py:87
+msgid "Front Page"
+msgstr ""
+
+#: ../page_views.py:719
+msgid "Help"
+msgstr ""
+
+#: ../page_views.py:560
+msgid "Ignore missing pages"
+msgstr ""
+
+#: ../folder_views.py:299
+msgid "Invalid name"
+msgstr ""
+
+#: ../page_views.py:74
+msgid "No page found to export."
+msgstr ""
+
+#: ../page_views.py:747
+msgid "ODT Help"
+msgstr ""
+
+#: ../page_views.py:558
+msgid "Or provide another ODT as a template:"
+msgstr ""
+
+#: ../page_views.py:70
+msgid "PDF generated not found. See \"{dirname}\" on the server for debug."
+msgstr ""
+
+#: ../page_views.py:65
+msgid "PDF generation failed. Please install the pdflatex binary on the server."
+msgstr ""
+
+#: ../page_views.py:68
+msgid "PDF generation failed. See \"{dirname}\" on the server for debug."
+msgstr ""
+
+#: ../page_views.py:73
+msgid "Page \"{uri}\" not found."
+msgstr ""
+
+#: ../page_views.py:62
+msgid "Syntax error, please check the view for details."
+msgstr ""
+
+#: ../page_views.py:64
+msgid "Syntax error: {error}"
+msgstr ""
+
+#: ../page_views.py:656
+msgid "Table of Contents"
+msgstr ""
+
+#: ../page_views.py:551
+msgid "To ODT"
+msgstr ""
+
+#: ../page_views.py:355
+msgid "To PDF"
+msgstr ""
+
+#: ../folder_views.py:453
+msgid "Upload an ODT to import it:"
+msgstr ""
+
+#: ../page_views.py:276
+msgid "View"
+msgstr ""
+
+#: ../folder.py:54
+#: ../folder_views.py:391
+msgid "Wiki"
+msgstr ""
+
+#: ../page.py:148
+msgid "Wiki Page"
+msgstr ""
+
+#: ../page.py:149
+msgid "Wiki contents"
+msgstr ""
+
+#: ../folder_views.py:308
+msgid "`_\n"
+msgstr ""
+
+#: ../page_views.py:630
+msgid "ikaaro.wiki to ODT"
+msgstr ""
+
+#: ../page_views.py:262
+msgid "lpoD default template"
+msgstr ""
+
+#: ../page_views.py:72
+msgid "{filename} is not an OpenDocument Text."
+msgstr ""
+
+#: ../page_views.py:266
+msgid "{title} (<a href=\"{link}\">view</a>)"
+msgstr ""
+
+#: ../ui/edit.xml.en:210
+msgctxt "button"
+msgid "<g id='53'>Save</g>  <g id='54'>Save &amp; View</g>"
+msgstr ""
+
+#: ../ui/importodt.xml.en:139
+msgctxt "button"
+msgid "Upload"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:31
+msgctxt "emphasis"
+msgid "The original document is not modified in any way."
+msgstr ""
+
+#: ../ui/importodt.xml.en:43
+msgctxt "heading"
+msgid "Browse and insert an ODT from the workspace"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:42
+msgctxt "heading"
+msgid "Definition Lists"
+msgstr ""
+
+#: ../ui/importodt.xml.en:96
+msgctxt "heading"
+msgid "Document metadata:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:47
+msgctxt "heading"
+msgid "Generating a book"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:5
+msgctxt "heading"
+msgid "Help on ODT Export"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:38
+msgctxt "heading"
+msgid "Links"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:16
+msgctxt "heading"
+msgid "Prerequisites"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:26
+msgctxt "heading"
+msgid "Template"
+msgstr ""
+
+#: ../ui/importodt.xml.en:89
+msgctxt "heading"
+msgid "Upload an ODT to import it:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:22
+msgctxt "heading"
+msgid "Usage"
+msgstr ""
+
+#: ../ui/edit.xml.en:197
+msgctxt "label"
+msgid "<g id='46'>${widget/title}</g>  <g id='47'>*</g>  <g id='48'>(?)</g>"
+msgstr ""
+
+#: ../ui/importodt.xml.en:107
+msgctxt "label"
+msgid "Comments:"
+msgstr ""
+
+#: ../ui/importodt.xml.en:111
+msgctxt "label"
+msgid "Keywords:"
+msgstr ""
+
+#: ../ui/importodt.xml.en:117
+msgctxt "label"
+msgid "Language:"
+msgstr ""
+
+#: ../ui/importodt.xml.en:47
+msgctxt "label"
+msgid "Location:"
+msgstr ""
+
+#: ../ui/importodt.xml.en:125
+msgctxt "label"
+msgid "Max heading level to split:"
+msgstr ""
+
+#: ../ui/edit.xml.en:165
+msgctxt "label"
+msgid "Saved!"
+msgstr ""
+
+#: ../ui/importodt.xml.en:103
+msgctxt "label"
+msgid "Subject:"
+msgstr ""
+
+#: ../ui/importodt.xml.en:99
+msgctxt "label"
+msgid "Title:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:77
+msgctxt "li"
+msgid "Any other content in this page will be ignored."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:74
+msgctxt "li"
+msgid "Cover titles are treated as main title and subtitle."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:18
+msgctxt "li"
+msgid "Install <g id='7'>lpOD</g> on the server."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:76
+msgctxt "li"
+msgid "Links to included pages will be turned into internal anchors."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:73
+msgctxt "li"
+msgid "Optional book title is a link to the cover page."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:75
+msgctxt "li"
+msgid "Pages listed as a subitem will see their title level incremented."
+msgstr ""
+
+#: ../ui/importodt.xml.en:49
+msgctxt "link"
+msgid "<g id='10'>${x/short_title}</g> /"
+msgstr ""
+
+#: ../ui/importodt.xml.en:28
+msgctxt "link"
+msgid "<g id='4'>Browse</g>  <g id='5'>External Link</g>  <g id='6'>Insert</g>  <g id='7'>Upload</g>"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:12
+msgctxt "link"
+msgid "Definition Lists"
+msgstr ""
+
+#: ../ui/edit.xml.en:93
+msgctxt "link"
+msgid "Format"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:13
+msgctxt "link"
+msgid "Generating a book"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:11
+msgctxt "link"
+msgid "Links"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:8
+msgctxt "link"
+msgid "Prerequisites"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:10
+msgctxt "link"
+msgid "Template"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:9
+msgctxt "link"
+msgid "Usage"
+msgstr ""
+
+#: ../ui/importodt.xml.en:128
+msgctxt "option"
+msgid "1"
+msgstr ""
+
+#: ../ui/importodt.xml.en:129
+msgctxt "option"
+msgid "2"
+msgstr ""
+
+#: ../ui/importodt.xml.en:130
+msgctxt "option"
+msgid "3"
+msgstr ""
+
+#: ../ui/importodt.xml.en:131
+msgctxt "option"
+msgid "4"
+msgstr ""
+
+#: ../ui/importodt.xml.en:132
+msgctxt "option"
+msgid "5"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:29
+msgctxt "paragraph"
+msgid "A template is simply an ODT file that is emptied from its previous content and filled with the new content."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:35
+msgctxt "paragraph"
+msgid "Click here to <g id='10'>upload an ODT</g>."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:45
+msgctxt "paragraph"
+msgid "Default styles are created if they don't exist."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:43
+msgctxt "paragraph"
+msgid "Definition lists are converted to styles paragraphs."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:39
+msgctxt "paragraph"
+msgid "Existing URLs remain untouched."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:39
+msgctxt "paragraph"
+msgid "Links will be expanded to a URL and point to this website."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:23
+msgctxt "paragraph"
+msgid "On any page, click on the <g id='8'>To ODT</g> tab to acccess this feature."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:30
+msgctxt "paragraph"
+msgid "Styles, headers and footers are preserved."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:71
+msgctxt "paragraph"
+msgid "The book has some nice behaviour:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:43
+msgctxt "paragraph"
+msgid "The term style is named \"Definition List Term\" and the definition style is named \"Definition List Definition\"."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:27
+msgctxt "paragraph"
+msgid "You can choose a template to write the exported document in."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:34
+msgctxt "paragraph"
+msgid "You can choose an ODT file on your disk or select an ODT previously uploaded into the wiki."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:48
+msgctxt "paragraph"
+msgid "You can export several wiki pages into a single ODT."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:48
+msgctxt "paragraph"
+msgid "You need to create a new page with a structure like this:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:52
+msgctxt "pre"
+msgid ".."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:53
+msgctxt "pre"
+msgid "3\n   :template:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:57
+msgctxt "pre"
+msgid ":comments:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:62
+msgctxt "pre"
+msgid ":filename:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:60
+msgctxt "pre"
+msgid ":language:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:59
+msgctxt "pre"
+msgid ":subject:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:57
+msgctxt "pre"
+msgid "Comments..."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:61
+msgctxt "pre"
+msgid "Keyword1, Keyword2..."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:58
+msgctxt "pre"
+msgid "On multiple lines..."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:59
+msgctxt "pre"
+msgid "Subject..."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:56
+msgctxt "pre"
+msgid "Title..."
+msgstr ""
+
+#: ../ui/help_odt.xml.en:52
+msgctxt "pre"
+msgid "`cover-page`_\n   :toc-depth:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:52
+msgctxt "pre"
+msgid "book::"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:60
+msgctxt "pre"
+msgid "fr-FR\n   :keywords:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:55
+msgctxt "pre"
+msgid "no\n   :title:"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:62
+msgctxt "pre"
+msgid "output.odt\n\n   - `a-page`_\n   - `another-page`_\n      - `a-subpage`_\n      - `another-subpage`_\n   - `a-last-page`_"
+msgstr ""
+
+#: ../ui/help_odt.xml.en:54
+msgctxt "pre"
+msgid "template-name\n   :ignore-missing-pages:"
+msgstr ""
+
+#: ../ui/edit.xml.en:235
+msgctxt "span"
+msgid "Format"
+msgstr ""
+
+#: ../ui/edit.xml.en:252
+msgctxt "span"
+msgid "Heading 1"
+msgstr ""
+
+#: ../ui/edit.xml.en:260
+msgctxt "span"
+msgid "Heading 2"
+msgstr ""
+
+#: ../ui/edit.xml.en:268
+msgctxt "span"
+msgid "Heading 3"
+msgstr ""
+
+#: ../ui/edit.xml.en:244
+msgctxt "span"
+msgid "Preformatted"
+msgstr ""
+
+#: ../ui/importodt.xml.en:56
+msgctxt "table cell"
+msgid "Browse Content"
+msgstr ""
+
+#: ../ui/importodt.xml.en:57
+msgctxt "table cell"
+msgid "Select ODT"
+msgstr ""
+
+#: ../ui/importodt.xml.en:7
+msgctxt "title"
+msgid "Import ODT"
+msgstr ""
+
+#: ../ui/edit.xml.en:24
+msgctxt "title attribute"
+msgid "Bold"
+msgstr ""
+
+#: ../ui/edit.xml.en:235
+msgctxt "title attribute"
+msgid "Format"
+msgstr ""
+
+#: ../ui/edit.xml.en:252
+msgctxt "title attribute"
+msgid "Heading 1"
+msgstr ""
+
+#: ../ui/edit.xml.en:260
+msgctxt "title attribute"
+msgid "Heading 2"
+msgstr ""
+
+#: ../ui/edit.xml.en:268
+msgctxt "title attribute"
+msgid "Heading 3"
+msgstr ""
+
+#: ../ui/edit.xml.en:134
+msgctxt "title attribute"
+msgid "Help"
+msgstr ""
+
+#: ../ui/edit.xml.en:145
+msgctxt "title attribute"
+msgid "Import ODT"
+msgstr ""
+
+#: ../ui/edit.xml.en:65
+msgctxt "title attribute"
+msgid "Insert image"
+msgstr ""
+
+#: ../ui/edit.xml.en:58
+msgctxt "title attribute"
+msgid "Insert link"
+msgstr ""
+
+#: ../ui/edit.xml.en:75
+msgctxt "title attribute"
+msgid "Insert table"
+msgstr ""
+
+#: ../ui/edit.xml.en:31
+msgctxt "title attribute"
+msgid "Italic"
+msgstr ""
+
+#: ../ui/edit.xml.en:126
+msgctxt "title attribute"
+msgid "Large Edit Text"
+msgstr ""
+
+#: ../ui/edit.xml.en:118
+msgctxt "title attribute"
+msgid "Medium Edit Text"
+msgstr ""
+
+#: ../ui/edit.xml.en:48
+msgctxt "title attribute"
+msgid "Ordered list"
+msgstr ""
+
+#: ../ui/edit.xml.en:243
+msgctxt "title attribute"
+msgid "Preformatted"
+msgstr ""
+
+#: ../ui/edit.xml.en:160
+msgctxt "title attribute"
+msgid "Save"
+msgstr ""
+
+#: ../ui/edit.xml.en:110
+msgctxt "title attribute"
+msgid "Small Edit Text"
+msgstr ""
+
+#: ../ui/edit.xml.en:198
+msgctxt "title attribute"
+msgid "This field is required"
+msgstr ""
+
+#: ../ui/edit.xml.en:152
+msgctxt "title attribute"
+msgid "Toggle fullscreen mode"
+msgstr ""
+
+#: ../ui/edit.xml.en:41
+msgctxt "title attribute"
+msgid "Unordered list"
+msgstr ""

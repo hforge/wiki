@@ -1,5 +1,9 @@
+*~
 version.txt
 MANIFEST
 build
 dist
 *.swp
+locale/*.mo
+*.xml.fr
+

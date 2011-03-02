@@ -25,6 +25,7 @@ import docutils
 
 # Import from itools
 from itools.core import get_abspath, get_version
+from itools.gettext import register_domain
 
 # Import from ikaaro
 from ikaaro.skins import register_skin
@@ -38,6 +39,9 @@ __version__ = get_version()
 
 # Register skin
 register_skin('wiki', get_abspath('ui'))
+
+# Register the wiki domain
+register_domain('wiki', get_abspath('locale'))
 
 # Updates
 if argv[0].endswith('icms-update.py'):

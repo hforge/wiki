@@ -540,5 +540,6 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         # Build RST Book
         book = self.do_import(resource, data, form, template_name)
         # Escape characters for JavaScript
-        book = book.replace(u"\n", u"\\n").replace(u"'", u"\\'")
-        return self.get_javascript_return(context, book.encode('utf-8'))
+        book = book.encode('utf-8')
+        book = book.replace("\n", "\\n").replace("'", "\\'")
+        return self.get_javascript_return(context, book)

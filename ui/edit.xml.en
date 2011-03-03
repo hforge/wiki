@@ -207,10 +207,7 @@
         </div>
         <p id="wiki-buttons">
           <a name="bottom" id="bottom"></a>
-          <button type="submit" name="action" value="save" class="button-ok"
-            >Save</button>
-          <button type="submit" name="action" value="save_and_view"
-            class="button-ok">Save &amp; View</button>
+          <stl:block stl:repeat="action actions">${action}</stl:block>
         </p>
       </fieldset>
     </form>

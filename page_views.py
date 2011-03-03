@@ -53,6 +53,9 @@ from ikaaro.autoform import AutoForm, FileWidget, RadioWidget
 from ikaaro.text_views import Text_Edit
 from ikaaro.views import ContextMenu
 
+# Import from wiki
+from buttons import Save, SaveAndView
+
 
 figure_style_converter = compile(r'\\begin\{figure\}\[.*?\]')
 ALLOWED_FORMATS = ('application/vnd.oasis.opendocument.text',
@@ -482,6 +485,15 @@ class WikiPage_Edit(Text_Edit):
     scripts = ['/ui/tiny_mce/tiny_mce_src.js',
                '/ui/wiki/javascript.js']
 
+    actions = freeze([Save, SaveAndView])
+
+
+    def get_actions_namespace(self, resource, context):
+        actions = []
+        for button in self.actions:
+            actions.append(button(resource=resource, context=context))
+        return actions
+
 
     def get_namespace(self, resource, context):
         proxy = super(WikiPage_Edit, self)
@@ -490,6 +502,7 @@ class WikiPage_Edit(Text_Edit):
         datatype = schema['data']
         namespace['data'] = self.get_value(resource, context, 'data',
                 datatype)
+        namespace['actions'] = self.get_actions_namespace(resource, context)
         return namespace
 
 

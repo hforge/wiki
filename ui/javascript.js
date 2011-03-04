@@ -456,7 +456,7 @@ function setup_resize() {
 
 function wiki_save(button) {
     var form = $(button).parents("form");
-    var url = form.attr("action");
+    var url = $(form).attr("action");
     $.ajax({
         type: 'POST',
         url: url,
@@ -468,7 +468,7 @@ function wiki_save(button) {
             });
         },
         error: function() {
-           /* Submit form to see the error */
+            /* Submit form to see the error */
             form.submit();
         },
     });

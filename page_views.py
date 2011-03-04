@@ -503,6 +503,8 @@ class WikiPage_Edit(Text_Edit):
         namespace['data'] = self.get_value(resource, context, 'data',
                 datatype)
         namespace['actions'] = self.get_actions_namespace(resource, context)
+        # Restore form action attribute
+        namespace['action'] = context.uri
         return namespace
 
 

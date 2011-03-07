@@ -149,7 +149,7 @@ class WikiPage(Text):
     class_description = MSG(u"Wiki contents")
     class_icon16 = 'wiki/WikiPage16.png'
     class_icon48 = 'wiki/WikiPage48.png'
-    class_views = ['view', 'to_pdf', 'to_odt', 'edit', 'externaledit',
+    class_views = ['view', 'to_odt', 'edit', 'externaledit',
             'edit_state', 'backlinks', 'commit_log', 'help', 'help_odt']
 
     overrides = {

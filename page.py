@@ -163,13 +163,17 @@ class WikiPage(Text):
 
     # Views
     new_instance = DBResource.new_instance
-    view = WikiPage_View()
-    to_pdf = WikiPage_ToPDF()
-    edit = WikiPage_Edit()
-    to_odt = WikiPage_ToODT()
-    help = WikiPage_Help()
-    help_odt = WikiPage_HelpODT()
+    view = WikiPage_View
+    to_pdf = WikiPage_ToPDF
+    edit = WikiPage_Edit
+    to_odt = WikiPage_ToODT
+    help = WikiPage_Help
+    help_odt = WikiPage_HelpODT
 
+
+    def get_text(self):
+        handler = self.get_value('data')
+        return handler.to_str() if handler else ''
 
 
     #######################################################################
@@ -180,7 +184,7 @@ class WikiPage(Text):
 
 
     def get_links(self):
-        base = self.get_canonical_path()
+        base = self.abspath
 
         try:
             doctree = self.get_doctree()
@@ -229,11 +233,11 @@ class WikiPage(Text):
 
     def update_links(self, source, target,
                      links_re = compile(r'(\.\. .*?: )(\S*)')):
-        old_data = self.handler.to_str()
+        old_data = self.get_text()
         new_data = []
 
         not_uri = 0
-        base = self.parent.get_canonical_path()
+        base = self.parent.abspath
         for segment in links_re.split(old_data):
             not_uri = (not_uri + 1) % 3
             if not not_uri:
@@ -256,7 +260,7 @@ class WikiPage(Text):
                     segment = str(base.get_pathto(target)) + view
             new_data.append(segment)
         new_data = ''.join(new_data)
-        self.handler.load_state_from_string(new_data)
+        self.get_value('data').load_state_from_string(new_data)
         get_context().database.change_resource(self)
 
 
@@ -315,7 +319,7 @@ class WikiPage(Text):
                     target['wiki_name'] = False
                 else:
                     # Found
-                    target['wiki_name'] = str(resource.get_canonical_path())
+                    target['wiki_name'] = str(resource.abspath)
 
                 return True
 
@@ -324,8 +328,8 @@ class WikiPage(Text):
 
         # Publish!
         reader = WikiReader(parser_name='restructuredtext')
-        doctree = publish_doctree(self.handler.to_str(), reader=reader,
-                settings_overrides=self.overrides)
+        doctree = publish_doctree(self.get_text(), reader=reader,
+                                  settings_overrides=self.overrides)
 
         # Assume internal paths are relative to the container
         for node in doctree.traverse(condition=nodes.reference):
@@ -343,7 +347,7 @@ class WikiPage(Text):
                 resource = parent.get_resource(reference.path, soft=True)
             if resource is None:
                 continue
-            refuri = str(resource.get_canonical_path())
+            refuri = str(resource.abspath)
             # Restore fragment
             if reference.fragment:
                 refuri = "%s#%s" % (refuri, reference.fragment)
@@ -362,7 +366,7 @@ class WikiPage(Text):
             # Resolve absolute path
             resource = parent.get_resource(path, soft=True)
             if resource is not None:
-                node['uri'] = str(resource.get_canonical_path())
+                node['uri'] = str(resource.abspath)
 
         return doctree
 

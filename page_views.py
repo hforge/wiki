@@ -140,18 +140,12 @@ class BacklinksMenu(ContextMenu):
 
 
     def get_items(self):
-        context = self.context
-        resource = self.resource
-        root = context.root
-        query = PhraseQuery('links', str(resource.get_canonical_path()))
-        results = context.root.search(query)
-        items = []
-        for brain in results.get_documents(sort_by='mtime'):
-            resource = root.get_resource(brain.abspath)
-            items.append({'title': resource.get_title(),
-                'href': context.get_link(resource),
-                'src': resource.get_class_icon()})
-        return items
+        query = PhraseQuery('links', str(self.resource.abspath))
+        results = self.context.search(query)
+        return [ {'title': x.get_title(),
+                  'href': str(x.abspath),
+                  'src': x.get_class_icon()}
+                 for x in results.get_resources(sort_by='mtime') ]
 
 
 
@@ -512,7 +506,7 @@ class WikiPage_Edit(Text_Edit):
         if name == 'data':
             data = context.get_form_value('data', type=datatype)
             if data is None:
-                data = resource.handler.to_str()
+                data = resource.get_text()
             return data
         proxy = super(WikiPage_Edit, self)
         return proxy.get_value(resource, context, name, datatype)
@@ -686,7 +680,7 @@ class WikiPage_ToODT(AutoForm):
                 context.message = ERR_NO_PAGE_FOUND
                 return
             # List of links between pages
-            known_links = [page.get_canonical_path() for page, _ in pages]
+            known_links = [ page.abspath for page, _ in pages ]
             # Compile pages
             for page, level in pages:
                 doctree = page.get_doctree()

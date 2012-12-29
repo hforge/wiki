@@ -29,14 +29,13 @@ from itools.fs.common import get_mimetype
 from itools.gettext import MSG
 from itools.handlers import checkid
 from itools.i18n import get_language_name
-from itools.web import ERROR
+from itools.web import ERROR, get_context
 
 # Import from ikaaro
 from ikaaro.datatypes import FileDataType
 from ikaaro.messages import MSG_BAD_NAME
 from ikaaro.popup import DBResource_AddBase, AddBase_BrowseContent
 from ikaaro.popup import DBResource_AddLink, DBResource_AddImage
-from ikaaro.registry import get_resource_class
 from ikaaro.utils import generate_name
 from ikaaro.views import ContextMenu
 from page import WikiPage
@@ -78,7 +77,7 @@ def _add_image(filename, document, resource):
     if resource.get_resource(name, soft=True) is None:
         # Get mimetype / class
         mimetype = get_mimetype(filename)
-        cls = get_resource_class(mimetype)
+        cls = get_context().database.get_resource_class(mimetype)
         # Add the image
         resource.make_resource(name, cls, body=data, format=mimetype,
                                filename=filename, extension=a_type)
@@ -369,7 +368,7 @@ def _save_template(context, a_file, target_path):
     name = generate_name(name, names)
 
     # Add the image to the resource
-    cls = get_resource_class(mimetype)
+    cls = context.database.get_resource_class(mimetype)
     container.make_resource(name, cls, body=body, format=mimetype,
             filename=filename, extension=type)
 

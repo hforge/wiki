@@ -22,12 +22,11 @@
 from itools.gettext import MSG
 
 # Import from ikaaro
-from ikaaro.access import AccessControl
+from ikaaro.autoedit import AutoEdit
 from ikaaro.file import File
 from ikaaro.folder import Folder
 from ikaaro.folder_views import GoToSpecificDocument
 from ikaaro.registry import register_document_type
-from ikaaro.resource_views import DBResource_Edit
 
 # Import from wiki
 from folder_views import WikiMenu, WikiFolder_ImportODT
@@ -35,20 +34,7 @@ from folder_views import WikiFolder_AddLink, WikiFolder_AddImage
 from page import WikiPage
 
 
-def is_wiki_allowed(name):
-    """WikiFolder is allowed to {name} if FrontPage is.
-    Else default rules apply.
-    """
-    def newfunc(self, user, resource, *args, **kwargs):
-        ac = self.parent.get_access_control()
-        method = getattr(ac, name)
-        if resource is self:
-            resource = self.get_resource(self.default_page)
-        return method(user, resource, *args, **kwargs)
-    return newfunc
-
-
-class WikiFolder(AccessControl, Folder):
+class WikiFolder(Folder):
     class_id = 'WikiFolder'
     class_version = '20071215'
     class_title = MSG(u"Wiki")
@@ -68,7 +54,7 @@ class WikiFolder(AccessControl, Folder):
 
     # Views
     view = GoToSpecificDocument(specific_document='FrontPage')
-    edit = DBResource_Edit(title=MSG(u"Edit Wiki"))
+    edit = AutoEdit(title=MSG(u"Edit Wiki"))
     add_link = WikiFolder_AddLink()
     add_image = WikiFolder_AddImage()
     import_odt = WikiFolder_ImportODT()
@@ -89,22 +75,6 @@ class WikiFolder(AccessControl, Folder):
 
     def get_document_types(self):
         return [WikiPage, File]
-
-
-    #############################################
-    # AccessControl API
-    #############################################
-    is_allowed_to_view = is_wiki_allowed('is_allowed_to_view')
-    is_allowed_to_edit = is_wiki_allowed('is_allowed_to_edit')
-    is_allowed_to_put = is_wiki_allowed('is_allowed_to_put')
-    is_allowed_to_add = is_wiki_allowed('is_allowed_to_add')
-    is_allowed_to_remove = is_wiki_allowed('is_allowed_to_remove')
-    is_allowed_to_copy = is_wiki_allowed('is_allowed_to_copy')
-    is_allowed_to_move = is_wiki_allowed('is_allowed_to_move')
-    is_allowed_to_trans = is_wiki_allowed('is_allowed_to_trans')
-    is_allowed_to_publish = is_wiki_allowed('is_allowed_to_publish')
-    is_allowed_to_retire = is_wiki_allowed('is_allowed_to_retire')
-    is_allowed_to_view_folder = is_wiki_allowed('is_allowed_to_view_folder')
 
 
 

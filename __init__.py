@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Import from the Standard Library
-from sys import argv
-
 # Import from docutils
 import docutils
 
@@ -42,11 +39,6 @@ register_skin('wiki', get_abspath('ui'))
 
 # Register the wiki domain
 register_domain('wiki', get_abspath('locale'))
-
-# Updates
-if argv[0].endswith('icms-update.py'):
-    import obsolete
-    obsolete
 
 # Silent pyflakes
 docutils

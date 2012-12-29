@@ -372,17 +372,6 @@ class WikiPage(Text):
         return doctree.next_node(condition=nodes.book)
 
 
-    #######################################################################
-    # Update
-    #######################################################################
-    def update_20081114(self,
-            links_migration_re = compile(r'\.\. figure:: ([^;]*?)(?!;)(\s)'),
-            links_migration_sub = r'.. figure:: \1/;download\2'):
-        data = self.handler.to_str()
-        data = links_migration_re.sub(links_migration_sub, data)
-        self.handler.load_state_from_string(data)
-
-
 
 # Register dummy book directive for ODT export
 nodes._add_node_class_names(['book'])

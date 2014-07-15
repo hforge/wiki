@@ -4,6 +4,7 @@
 # Copyright (C) 2007-2008, 2010 Henry Obein <henry@itaapy.com>
 # Copyright (C) 2007-2008, 2010 Hervé Cauwelier <herve@itaapy.com>
 # Copyright (C) 2008 Gautier Hayoun <gautier.hayoun@itaapy.com>
+# Copyright (C) 2014 Nicolas Deram <nicolas@agicia.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,11 +34,10 @@ from docutils.utils import SystemMessage
 from docutils import nodes
 
 # Import from itools
-from itools.core import freeze
 from itools.database import PhraseQuery
 from itools.datatypes import Enumerate, Boolean, XMLContent
 from itools.gettext import MSG
-from itools.handlers import checkid, ro_database
+from itools.handlers import checkid, ro_database, TextFile
 from itools.html import XHTMLFile
 from itools.i18n import format_datetime
 from itools.uri import get_reference
@@ -48,13 +48,12 @@ from itools.xml import XMLParser, XMLError
 
 # Import from ikaaro
 from ikaaro import messages
+from ikaaro.autoedit import AutoEdit
 from ikaaro.datatypes import FileDataType
+from ikaaro.fields import File_Field
 from ikaaro.autoform import AutoForm, FileWidget, RadioWidget
-from ikaaro.text_views import Text_Edit
 from ikaaro.views import ContextMenu
-
-# Import from wiki
-from buttons import Save, SaveAndView
+from ikaaro.widgets import MultilineWidget
 
 
 figure_style_converter = compile(r'\\begin\{figure\}\[.*?\]')
@@ -463,51 +462,22 @@ class WikiPage_ToPDF(BaseView):
 
 
 
-# TODO Use auto-form
-class WikiPage_Edit(Text_Edit):
-    template = '/ui/wiki/edit.xml'
-    widgets = freeze(
-        Text_Edit.widgets[:3]
-        # Skip data and file
-        + Text_Edit.widgets[5:])
+class WikiPage_Edit(AutoEdit):
 
     # No Multilingual
-    context_menus = []
+    action_goto = './;view'
 
-    styles = ['/ui/tiny_mce/themes/advanced/skins/default/ui.css',
-              '/ui/wiki/style.css']
-    scripts = ['/ui/tiny_mce/tiny_mce_src.js',
-               '/ui/wiki/javascript.js']
-
-    actions = freeze([Save, SaveAndView])
-
-
-    def get_actions_namespace(self, resource, context):
-        actions = []
-        for button in self.actions:
-            actions.append(button(resource=resource, context=context))
-        return actions
-
-
-    def get_namespace(self, resource, context):
-        proxy = super(WikiPage_Edit, self)
-        namespace = proxy.get_namespace(resource, context)
-        schema = self.get_schema(resource, context)
-        datatype = schema['data']
-        namespace['data'] = self.get_value(resource, context, 'data',
-                datatype)
-        namespace['actions'] = self.get_actions_namespace(resource, context)
-        # Restore form action attribute
-        namespace['action'] = context.uri
-        return namespace
+    data = File_Field(required=True, class_handler=TextFile,
+        widget=MultilineWidget(rows=20, cols=80))
+    fields = ['data', 'title', 'share']
 
 
     def get_value(self, resource, context, name, datatype):
         if name == 'data':
-            data = context.get_form_value('data', type=datatype)
-            if data is None:
-                data = resource.get_text()
-            return data
+            value = resource.get_value('data')
+            if value:
+                return value.to_str()
+            return None
         proxy = super(WikiPage_Edit, self)
         return proxy.get_value(resource, context, name, datatype)
 
@@ -536,22 +506,6 @@ class WikiPage_Edit(Text_Edit):
             # Save even if broken
             return False
         return proxy.set_value(resource, context, name, form)
-
-
-    def action_save(self, resource, context, form):
-        super(WikiPage_Edit, self).action(resource, context, form)
-        message = getattr(context, 'wiki_message', None)
-        if message is not None:
-            context.message = message
-
-
-    def action_save_and_view(self, resource, context, form):
-        self.action_save(resource, context, form)
-        goto = context.come_back(context.message)
-        query = goto.query
-        goto = goto.resolve(';view')
-        goto.query = query
-        return goto
 
 
 

@@ -39,8 +39,8 @@ class WikiFolder(Folder):
     class_version = '20071215'
     class_title = MSG(u"Wiki")
     class_description = MSG(u"Container for a wiki")
-    class_icon16 = 'wiki/WikiFolder16.png'
-    class_icon48 = 'wiki/WikiFolder48.png'
+    class_icon16 = '/ui/wiki/WikiFolder16.png'
+    class_icon48 = '/ui/wiki/WikiFolder48.png'
     class_views = ['view', 'browse_content', 'preview_content', 'edit',
                    'new_resource', 'orphans', 'commit_log']
 

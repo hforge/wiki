@@ -147,8 +147,8 @@ class WikiPage(Text):
     class_version = '20090123'
     class_title = MSG(u"Wiki Page")
     class_description = MSG(u"Wiki contents")
-    class_icon16 = 'wiki/WikiPage16.png'
-    class_icon48 = 'wiki/WikiPage48.png'
+    class_icon16 = '/ui/wiki/WikiPage16.png'
+    class_icon48 = '/ui/wiki/WikiPage48.png'
     class_views = ['view', 'edit', 'externaledit', 'backlinks', 'commit_log',
                    'help', 'to_odt', 'help_odt']
 

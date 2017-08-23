@@ -83,7 +83,7 @@
 .document .reference.external:visited {
   padding-left: 18px;
   color: blue;
-  background: url(../icons/16x16/website.png) top left no-repeat;
+  background: url(/ui/icons/16x16/website.png) top left no-repeat;
 }
 
 .document .reference.internal:link,

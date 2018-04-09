@@ -37,7 +37,7 @@ from docutils import nodes
 from itools.database import PhraseQuery
 from itools.datatypes import Enumerate, Boolean, XMLContent
 from itools.gettext import MSG
-from itools.handlers import checkid, ro_database, TextFile
+from itools.handlers import checkid, TextFile, File
 from itools.html import XHTMLFile
 from itools.i18n import format_datetime
 from itools.uri import get_reference
@@ -415,7 +415,7 @@ class WikiPage_ToPDF(BaseView):
             file = tempdir.make_file(filename)
             try:
                 try:
-                    handler = ro_database.get_handler(uri)
+                    handler = File(uri)
                 except LookupError:
                     handler = stub
                 try:

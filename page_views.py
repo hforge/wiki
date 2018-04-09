@@ -49,9 +49,10 @@ from itools.xml import XMLParser, XMLError
 # Import from ikaaro
 from ikaaro import messages
 from ikaaro.autoedit import AutoEdit
+from ikaaro.autoform import AutoForm
 from ikaaro.datatypes import FileDataType
 from ikaaro.fields import File_Field
-from ikaaro.widgets import AutoForm, FileWidget, RadioWidget
+from ikaaro.widgets import FileWidget, RadioWidget
 from ikaaro.views import ContextMenu
 from ikaaro.widgets import MultilineWidget
 

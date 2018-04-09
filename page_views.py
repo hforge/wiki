@@ -51,7 +51,7 @@ from ikaaro import messages
 from ikaaro.autoedit import AutoEdit
 from ikaaro.datatypes import FileDataType
 from ikaaro.fields import File_Field
-from ikaaro.autoform import AutoForm, FileWidget, RadioWidget
+from ikaaro.widgets import AutoForm, FileWidget, RadioWidget
 from ikaaro.views import ContextMenu
 from ikaaro.widgets import MultilineWidget
 

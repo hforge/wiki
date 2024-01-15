@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 # Copyright (C) 2007-2009 J. David Ibanez <jdavid@itaapy.com>
 # Copyright (C) 2010 Hervé Cauwelier <herve@itaapy.com>
 #

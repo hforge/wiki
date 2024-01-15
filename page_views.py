@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 # Copyright (C) 2007 Sylvain Taverne <sylvain@itaapy.com>
 # Copyright (C) 2007-2008 Juan David Ibáñez Palomar <jdavid@itaapy.com>
 # Copyright (C) 2007-2008, 2010 Henry Obein <henry@itaapy.com>
@@ -478,12 +477,12 @@ class WikiPage_Edit(AutoEdit):
             if value:
                 return value.to_str()
             return None
-        proxy = super(WikiPage_Edit, self)
+        proxy = super()
         return proxy.get_value(resource, context, name, datatype)
 
 
     def set_value(self, resource, context, name, form):
-        proxy = super(WikiPage_Edit, self)
+        proxy = super()
         if name == 'data':
             proxy.set_value(resource, context, name, form)
             # Warn about syntax errors
@@ -536,7 +535,7 @@ class WikiPage_ToODT(AutoForm):
             if book is not None:
                 ignore_missing_pages = book.get('ignore-missing-pages')
                 return ignore_missing_pages == 'yes'
-        proxy = super(WikiPage_ToODT, self)
+        proxy = super()
         return proxy.get_value(resource, context, name, datatype)
 
 
@@ -550,7 +549,7 @@ class WikiPage_ToODT(AutoForm):
             return msg.encode('utf_8')
         # Just to ignore pyflakes warning
         rst2odt
-        proxy = super(WikiPage_ToODT, self)
+        proxy = super()
         return proxy.GET(resource, context)
 
 

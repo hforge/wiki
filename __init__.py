@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 # Copyright (C) 2007 Henry Obein <henry@itaapy.com>
 # Copyright (C) 2007 Sylvain Taverne <sylvain@itaapy.com>
 # Copyright (C) 2007, 2010 Hervé Cauwelier <herve@itaapy.com>

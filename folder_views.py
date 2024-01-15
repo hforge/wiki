@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 # Copyright (C) 2007 Henry Obein <henry@itaapy.com>
 # Copyright (C) 2007 Sylvain Taverne <sylvain@itaapy.com>
 # Copyright (C) 2007, 2010 Hervé Cauwelier <herve@itaapy.com>
@@ -462,7 +461,7 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
 
 
     def get_namespace(self, resource, context):
-        proxy = super(WikiFolder_ImportODT, self)
+        proxy = super()
         namespace = proxy.get_namespace(resource, context)
         root = resource.get_site_root()
         languages = root.get_property('website_languages')

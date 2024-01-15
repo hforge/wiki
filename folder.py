@@ -24,8 +24,8 @@ from itools.gettext import MSG
 from ikaaro.autoedit import AutoEdit
 from ikaaro.file import File
 from ikaaro.folder import Folder
-from ikaaro.folder_views import GoToSpecificDocument
 from ikaaro.registry import register_document_type
+from ikaaro.views import GoToSpecificDocument
 
 # Import from wiki
 from .folder_views import WikiMenu, WikiFolder_ImportODT

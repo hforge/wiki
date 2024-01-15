@@ -29,16 +29,16 @@ from ikaaro.folder_views import GoToSpecificDocument
 from ikaaro.registry import register_document_type
 
 # Import from wiki
-from folder_views import WikiMenu, WikiFolder_ImportODT
-from folder_views import WikiFolder_AddLink, WikiFolder_AddImage
-from page import WikiPage
+from .folder_views import WikiMenu, WikiFolder_ImportODT
+from .folder_views import WikiFolder_AddLink, WikiFolder_AddImage
+from .page import WikiPage
 
 
 class WikiFolder(Folder):
     class_id = 'WikiFolder'
     class_version = '20071215'
-    class_title = MSG(u"Wiki")
-    class_description = MSG(u"Container for a wiki")
+    class_title = MSG("Wiki")
+    class_description = MSG("Container for a wiki")
     class_icon16 = '/ui/wiki/WikiFolder16.png'
     class_icon48 = '/ui/wiki/WikiFolder48.png'
     class_views = ['view', 'browse_content', 'preview_content', 'edit',
@@ -54,7 +54,7 @@ class WikiFolder(Folder):
 
     # Views
     view = GoToSpecificDocument(specific_document='FrontPage')
-    edit = AutoEdit(title=MSG(u"Edit Wiki"))
+    edit = AutoEdit(title=MSG("Edit Wiki"))
     add_link = WikiFolder_AddLink()
     add_image = WikiFolder_AddImage()
     import_odt = WikiFolder_ImportODT()
@@ -70,7 +70,7 @@ class WikiFolder(Folder):
         Folder.init_resource(self, **kw)
         # FrontPage
         self.make_resource(self.default_page, WikiPage,
-                title={'en': u"Front Page"})
+                title={'en': "Front Page"})
 
 
     def get_document_types(self):

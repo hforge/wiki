@@ -20,7 +20,7 @@
 
 # Import from the Standard Library
 from re import compile
-from urllib import urlencode
+from urllib.parse import urlencode
 
 # Import from docutils
 from docutils import nodes
@@ -40,9 +40,9 @@ from itools.web import get_context
 # Import from ikaaro
 from ikaaro.text import Text
 from ikaaro.resource_ import DBResource
-from page_views import WikiPage_View, WikiPage_Edit, WikiPage_Help
-from page_views import WikiPage_ToPDF, WikiPage_ToODT, WikiPage_HelpODT
-from page_views import is_external, BacklinksMenu
+from .page_views import WikiPage_View, WikiPage_Edit, WikiPage_Help
+from .page_views import WikiPage_ToPDF, WikiPage_ToODT, WikiPage_HelpODT
+from .page_views import is_external, BacklinksMenu
 
 
 
@@ -92,7 +92,7 @@ class Book(Directive):
         options = self.options
         for option in ('title', 'comments', 'subject', 'keywords'):
             if options.get(option) is None:
-                options[option] = u""
+                options[option] = ""
         if options.get('language') is None:
             # The website language, not the content language
             # because the wiki is not multilingual anyway
@@ -145,8 +145,8 @@ class Book(Directive):
 class WikiPage(Text):
     class_id = 'WikiPage'
     class_version = '20090123'
-    class_title = MSG(u"Wiki Page")
-    class_description = MSG(u"Wiki contents")
+    class_title = MSG("Wiki Page")
+    class_description = MSG("Wiki contents")
     class_icon16 = '/ui/wiki/WikiPage16.png'
     class_icon48 = '/ui/wiki/WikiPage48.png'
     class_views = ['view', 'edit', 'externaledit', 'backlinks', 'commit_log',

@@ -28,7 +28,7 @@ from itools.gettext import register_domain
 from ikaaro.skins import register_skin
 
 # Import from wiki
-from folder import WikiFolder
+from .folder import WikiFolder
 
 
 # The version

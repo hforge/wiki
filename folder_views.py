@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Import from the Standard Library
-from cStringIO import StringIO
+from io import StringIO
 
 # Import from itools
 from itools.core import merge_dicts, freeze
@@ -38,8 +38,8 @@ from ikaaro.popup import DBResource_AddBase, AddBase_BrowseContent
 from ikaaro.popup import DBResource_AddLink, DBResource_AddImage
 from ikaaro.utils import generate_name
 from ikaaro.views import ContextMenu
-from page import WikiPage
-from page_views import ALLOWED_FORMATS
+from .page import WikiPage
+from .page_views import ALLOWED_FORMATS
 
 
 #################################################################
@@ -54,7 +54,7 @@ def generate_title_and_name(title, used):
     # OK we must search for a free title/name
     index = 0
     while True:
-        title2 = u'%s (%d)' % (title, index)
+        title2 = '%s (%d)' % (title, index)
         name = checkid(title2)
         if name not in used:
             return title2, name
@@ -63,7 +63,7 @@ def generate_title_and_name(title, used):
 
 
 def _add_image(filename, document, resource):
-    if type(filename) is unicode:
+    if isinstance(filename, str):
         filename = filename.encode('UTF-8')
     data = document.get_part('Pictures/%s' % filename)
     name, a_type, language = FileName.decode(filename)
@@ -111,18 +111,18 @@ def _insert_notes_and_co(lpod_context, content, document, resource):
     # Insert the notes
     footnotes = lpod_context['footnotes']
     if footnotes:
-        content.append(u'\n')
+        content.append('\n')
         for citation, body in footnotes:
-            content.append(u'.. [#] %s\n' % body)
+            content.append('.. [#] %s\n' % body)
         # Append a \n after the notes
-        content.append(u'\n')
+        content.append('\n')
         # Reset
         lpod_context['footnotes'] = []
 
     # Insert the annotations
     annotations = lpod_context['annotations']
     if annotations:
-        content.append(u'\n')
+        content.append('\n')
         for annotation in annotations:
             content.append('.. [#] %s\n' % annotation)
         # Reset
@@ -131,19 +131,19 @@ def _insert_notes_and_co(lpod_context, content, document, resource):
     # Insert the images ref
     images = lpod_context['images']
     if images:
-        content.append(u'\n')
+        content.append('\n')
         for ref, filename, (width, height) in images:
             # Delete 'Pictures/'
             filename = filename[9:]
             name = _add_image(filename, document, resource)
             if name is None:
                 continue
-            content.append(u'.. %s image:: %s\n' % (ref, name))
+            content.append('.. %s image:: %s\n' % (ref, name))
             if width is not None:
-                content.append(u'   :width: %s\n' % width)
+                content.append('   :width: %s\n' % width)
             if height is not None:
-                content.append(u'   :height: %s\n' % height)
-            content.append(u'\n')
+                content.append('   :height: %s\n' % height)
+            content.append('\n')
         lpod_context['images'] = []
 
 
@@ -153,9 +153,9 @@ def _insert_endnotes(lpod_context, content):
     # Insert the end notes
     endnotes = lpod_context['endnotes']
     if endnotes:
-        content.append(u'\n\n')
+        content.append('\n\n')
         for citation, body in endnotes:
-            content.append(u'.. [*] %s\n' % body)
+            content.append('.. [*] %s\n' % body)
         # Reset
         lpod_context['endnotes'] = []
 
@@ -165,12 +165,12 @@ def _format_meta(form, template_name, toc_depth, language, document):
     """Format the metadata of a rst book from a lpod document.
     """
     content = []
-    content.append(u'   :toc-depth: %s' % toc_depth)
-    content.append(u'   :template: %s' % template_name)
-    content.append(u'   :ignore-missing-pages: no')
+    content.append('   :toc-depth: %s' % toc_depth)
+    content.append('   :template: %s' % template_name)
+    content.append('   :ignore-missing-pages: no')
     for key in ['title', 'comments', 'subject', 'keywords']:
-        content.append(u'   :%s: %s' % (key,  form[key]))
-    content.append(u'   :language: %s' % language)
+        content.append('   :%s: %s' % (key,  form[key]))
+    content.append('   :language: %s' % language)
 
     # Compute a default filename
     title = document.get_part('meta').get_title()
@@ -179,10 +179,10 @@ def _format_meta(form, template_name, toc_depth, language, document):
         filename = checkid(filename)
     else:
         filename = checkid(title.strip()) + '.odt'
-    content.append(u'   :filename: %s' % filename)
+    content.append('   :filename: %s' % filename)
 
-    content.append(u'')
-    return u"\n".join(content)
+    content.append('')
+    return "\n".join(content)
 
 
 
@@ -193,9 +193,9 @@ def _get_cover_title_and_name(resource, document, template_name):
     if not title:
         title = template_name
     if title:
-        title = u'Cover "%s"' % title
+        title = 'Cover "%s"' % title
     else:
-        title = u'Cover'
+        title = 'Cover'
 
     return generate_title_and_name(title, resource.get_names())
 
@@ -228,8 +228,8 @@ def _format_content(resource, document, template_name, max_allowed_level):
 
     # Main loop
     name = None
-    title = u'Cover'
-    links = u''
+    title = 'Cover'
+    links = ''
     max_level = 0
     last_level = 1
     content = []
@@ -263,7 +263,7 @@ def _format_content(resource, document, template_name, max_allowed_level):
             # Generate the content
             _insert_notes_and_co(lpod_context, content, document, resource)
             _insert_endnotes(lpod_context, content)
-            content =  u''.join(content).encode('utf-8')
+            content =  ''.join(content).encode('utf-8')
             content = _convert_images(content, document, resource)
 
             # In the cover ?
@@ -290,16 +290,16 @@ def _format_content(resource, document, template_name, max_allowed_level):
 
             # Search for a free WikiPage name
             if not title:
-                title = u'Invalid name'
+                title = 'Invalid name'
             names = resource.get_names()
             link_title, name = generate_title_and_name(title, names)
 
             # Update links (add eventually blank levels to avoid a problem
             # with an inconsistency use of levels in the ODT file)
             for x in range(last_level + 1, level):
-                links += u'   ' * x + u'- [unknown title]\n'
+                links += '   ' * x + '- [unknown title]\n'
             last_level = level
-            links += u'   ' * level + u'- `' + link_title + u'`_\n'
+            links += '   ' * level + '- `' + link_title + '`_\n'
 
         # Search for Title and Subtitle (useful for the cover).
         # We assume that these elements are direct children of the body
@@ -334,7 +334,7 @@ def _format_content(resource, document, template_name, max_allowed_level):
     # Generate the content
     _insert_notes_and_co(lpod_context, content, document, resource)
     _insert_endnotes(lpod_context, content)
-    content =  u''.join(content).encode('utf-8')
+    content =  ''.join(content).encode('utf-8')
     content = _convert_images(content, document, resource)
 
     # In the cover ?
@@ -382,7 +382,7 @@ def _save_template(context, a_file, target_path):
 
 class WikiMenu(ContextMenu):
 
-    title = MSG(u'Wiki')
+    title = MSG('Wiki')
 
     def get_items(self):
         context = self.context
@@ -415,9 +415,9 @@ class WikiFolder_AddLink(WikiFolder_AddBase, DBResource_AddLink):
         """Return the type of page to add corresponding to the mode
         """
         if mode == 'wiki':
-            from page import WikiPage
+            from .page import WikiPage
             return WikiPage
-        raise ValueError, 'Incorrect mode %s' % mode
+        raise ValueError('Incorrect mode %s' % mode)
 
 
 class WikiFolder_AddImage(WikiFolder_AddBase, DBResource_AddImage):
@@ -444,7 +444,7 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         file=FileDataType(mandatory=True)))
 
     text_values = freeze({
-        'upload': MSG(u"Upload an ODT to import it:"),
+        'upload': MSG("Upload an ODT to import it:"),
         'method': ';import_odt'})
 
 
@@ -507,7 +507,7 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         language = self.get_language(form['language'])
         meta = _format_meta(form, template_name, toc_depth, language,
                 document)
-        return u' `%s`_\n%s\n%s' % (cover, meta, links)
+        return ' `%s`_\n%s\n%s' % (cover, meta, links)
 
 
     def action_upload(self, resource, context, form):
@@ -517,7 +517,7 @@ class WikiFolder_ImportODT(WikiFolder_AddBase):
         a_file = form['file']
         filename, mimetype, data = a_file
         if mimetype not in ALLOWED_FORMATS:
-            context.message = ERROR(u'"%s" is not an OpenDocument Text' %
+            context.message = ERROR('"%s" is not an OpenDocument Text' %
                     filename)
             return
 

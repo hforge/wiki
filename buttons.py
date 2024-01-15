@@ -30,10 +30,10 @@ from ikaaro.buttons import Button
 class Save(Button):
     access = 'is_allowed_to_edit'
     name = 'save'
-    title = MSG(u"Save")
+    title = MSG("Save")
 
 
 
 class SaveAndView(Save):
     name = 'save_and_view'
-    title = MSG(u"Save & View")
+    title = MSG("Save & View")

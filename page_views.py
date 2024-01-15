@@ -20,7 +20,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Import from the Standard Library
-from cStringIO import StringIO
+from io import StringIO
 from datetime import datetime, timedelta
 from re import compile
 from subprocess import call
@@ -62,23 +62,23 @@ ALLOWED_FORMATS = ('application/vnd.oasis.opendocument.text',
         'application/vnd.oasis.opendocument.text-template')
 
 
-ERR_SYNTAX_WARNING = ERROR(u"Syntax error, please check the view for "
-        u"details.")
-ERR_SYNTAX_ERROR = ERROR(u'Syntax error: {error}')
-ERR_PDFLATEX_MISSING = ERROR(u"PDF generation failed. Please install the "
-        u"pdflatex binary on the server.")
-ERR_PDF_BOOK = ERROR(u"Books are not exportable to PDF.")
-ERR_PDF_FAILED = ERROR(u'PDF generation failed. See "{dirname}" on the '
-        u'server for debug.')
-ERR_PDF_NOT_FOUND = ERROR(u'PDF generated not found. See "{dirname}" on the '
-        u'server for debug.')
-ERR_NOT_ODT = ERROR(u"{filename} is not an OpenDocument Text.")
-ERR_PAGE_NOT_FOUND = ERROR(u'Page "{uri}" not found.')
-ERR_NO_PAGE_FOUND = ERROR(u"No page found to export.")
+ERR_SYNTAX_WARNING = ERROR("Syntax error, please check the view for "
+        "details.")
+ERR_SYNTAX_ERROR = ERROR('Syntax error: {error}')
+ERR_PDFLATEX_MISSING = ERROR("PDF generation failed. Please install the "
+        "pdflatex binary on the server.")
+ERR_PDF_BOOK = ERROR("Books are not exportable to PDF.")
+ERR_PDF_FAILED = ERROR('PDF generation failed. See "{dirname}" on the '
+        'server for debug.')
+ERR_PDF_NOT_FOUND = ERROR('PDF generated not found. See "{dirname}" on the '
+        'server for debug.')
+ERR_NOT_ODT = ERROR("{filename} is not an OpenDocument Text.")
+ERR_PAGE_NOT_FOUND = ERROR('Page "{uri}" not found.')
+ERR_NO_PAGE_FOUND = ERROR("No page found to export.")
 
 
 def is_external(reference):
-    return (type(reference) is Mailto or reference.scheme
+    return (isinstance(reference, Mailto) or reference.scheme
             or reference.authority)
 
 
@@ -136,7 +136,7 @@ def resolve_images(doctree, resource, context):
 
 
 class BacklinksMenu(ContextMenu):
-    title = MSG(u"Backlinks")
+    title = MSG("Backlinks")
 
 
     def get_items(self):
@@ -157,8 +157,8 @@ def odt_reference_resolver(resource, reference, context, known_links=[]):
     path = reference.path
     if not path.startswith_slash:
         # Was not resolved
-        raise ValueError, 'page "%s": the link "%s" is broken' % (
-                resource.name, reference)
+        raise ValueError('page "%s": the link "%s" is broken' % (
+                resource.name, reference))
     if path not in known_links:
         return default_reference_resolver(resource, reference, context)
     destination = resource.get_resource(path)
@@ -179,7 +179,7 @@ def odt_reference_resolver(resource, reference, context, known_links=[]):
     # No title at all
     if title is None:
         return default_reference_resolver(resource, reference, context)
-    return u"#1.%s|outline" % title
+    return "#1.%s|outline" % title
 
 
 
@@ -243,7 +243,7 @@ class PageVisitor(nodes.SparseNodeVisitor):
         if path is False:
             if self.ignore_missing_pages is True:
                 return
-            raise LookupError, node.astext()
+            raise LookupError(node.astext())
         page = self.container.get_resource(path)
         self.pages.append((page, self.level))
 
@@ -256,11 +256,11 @@ class TemplateList(Enumerate):
         context = get_context()
         container = context.resource.parent
 
-        options = [{'name': '', 'value': MSG(u"lpoD default template")}]
+        options = [{'name': '', 'value': MSG("lpoD default template")}]
         for resource in container.get_resources():
             if not resource.class_id in ALLOWED_FORMATS:
                 continue
-            msg = MSG(u'{title} (<a href="{link}">view</a>)')
+            msg = MSG('{title} (<a href="{link}">view</a>)')
             msg = msg.gettext(title=resource.get_title(),
                     link=context.get_link(resource)).encode('utf_8')
             options.append({'name': resource.name, 'value': XMLParser(msg)})
@@ -270,7 +270,7 @@ class TemplateList(Enumerate):
 
 class WikiPage_View(BaseView):
     access = 'is_allowed_to_view'
-    title = MSG(u'View')
+    title = MSG('View')
     icon = 'html.png'
     styles = ['/ui/wiki/style.css']
 
@@ -280,7 +280,7 @@ class WikiPage_View(BaseView):
 
         try:
             doctree = resource.get_doctree()
-        except SystemMessage, e:
+        except SystemMessage as e:
             # Critical
             context.message = ERR_SYNTAX_ERROR(error=e.message)
             content = XMLContent.encode(resource.handler.to_str())
@@ -349,7 +349,7 @@ class WikiPage_View(BaseView):
 
 class WikiPage_ToPDF(BaseView):
     access = 'is_allowed_to_view'
-    title = MSG(u"To PDF")
+    title = MSG("To PDF")
 
 
     def GET(self, resource, context):
@@ -371,7 +371,7 @@ class WikiPage_ToPDF(BaseView):
         try:
             output = publish_from_doctree(doctree, writer_name='latex',
                     settings_overrides=overrides)
-        except NotImplementedError, e:
+        except NotImplementedError as e:
             if str(e).endswith('visiting unknown node type: book'):
                 message = ERR_PDF_BOOK
                 return context.come_back(message)
@@ -491,7 +491,7 @@ class WikiPage_Edit(AutoEdit):
             message = None
             try:
                 html = resource.view.GET(resource, context)
-            except SystemMessage, e:
+            except SystemMessage as e:
                 # Critical
                 message = ERR_SYNTAX_ERROR(error=e.message)
             else:
@@ -512,17 +512,17 @@ class WikiPage_Edit(AutoEdit):
 
 class WikiPage_ToODT(AutoForm):
     access = 'is_allowed_to_view'
-    title = MSG(u"To ODT")
+    title = MSG("To ODT")
     schema = {'template': TemplateList,
             'template_upload': FileDataType,
             'ignore_missing_pages': Boolean}
-    widgets = [RadioWidget('template', title=MSG(u"Choose a template:"),
+    widgets = [RadioWidget('template', title=MSG("Choose a template:"),
             has_empty_option=False),
         FileWidget('template_upload',
-            title=MSG(u"Or provide another ODT as a template:")),
+            title=MSG("Or provide another ODT as a template:")),
         RadioWidget('ignore_missing_pages',
-            title=MSG(u"Ignore missing pages"))]
-    submit_value = MSG(u"Convert")
+            title=MSG("Ignore missing pages"))]
+    submit_value = MSG("Convert")
 
 
     def get_value(self, resource, context, name, datatype):
@@ -545,8 +545,8 @@ class WikiPage_ToODT(AutoForm):
         try:
             from lpod.rst2odt import rst2odt
         except ImportError:
-            msg = MSG(u'<p>Please install <a href="{href}">{name}</a> '
-                      u'for Python on the server.</p>')
+            msg = MSG('<p>Please install <a href="{href}">{name}</a> '
+                      'for Python on the server.</p>')
             msg = msg.gettext(href='http://lpod-project.org/', name='LpOD')
             return msg.encode('utf_8')
         # Just to ignore pyflakes warning
@@ -591,7 +591,7 @@ class WikiPage_ToODT(AutoForm):
             meta.set_modification_date(now)
             meta.set_editing_duration(timedelta(0))
             meta.set_editing_cycles(1)
-            meta.set_generator(u"ikaaro.wiki to ODT")
+            meta.set_generator("ikaaro.wiki to ODT")
             for metadata in ('title', 'comments', 'subject', 'language',
                     'keywords'):
                 getattr(meta, 'set_' + metadata)(book.get(metadata))
@@ -617,7 +617,7 @@ class WikiPage_ToODT(AutoForm):
                     convert(document, doctree, context=convert_context)
             # Global TOC
             language = book.get('language').split('-')[0]
-            title = MSG(u"Table of Contents").gettext(language=language)
+            title = MSG("Table of Contents").gettext(language=language)
             outline_level = book.get('toc-depth', 10)
             toc = odf_create_toc(title=title, outline_level=outline_level)
             document.get_body().append(toc)
@@ -627,7 +627,7 @@ class WikiPage_ToODT(AutoForm):
                     ignore_missing_pages=form['ignore_missing_pages'])
             try:
                 book.walkabout(visitor)
-            except LookupError, uri:
+            except LookupError as uri:
                 context.message = ERR_PAGE_NOT_FOUND(uri=uri)
                 return
             pages = visitor.pages
@@ -643,8 +643,8 @@ class WikiPage_ToODT(AutoForm):
                     resolve_references(doctree, page, context,
                             reference_resolver=odt_reference_resolver,
                             known_links=known_links)
-                except ValueError, e:
-                    context.message = ERROR(unicode(str(e), 'utf_8'))
+                except ValueError as e:
+                    context.message = ERROR(str(str(e), 'utf_8'))
                     return
                 resolve_images(doctree, resource, context)
                 if startswith_section(doctree):
@@ -680,7 +680,7 @@ class WikiPage_ToODT(AutoForm):
 
 class WikiPage_Help(STLView):
     access = 'is_allowed_to_view'
-    title = MSG(u"Help")
+    title = MSG("Help")
     template = '/ui/wiki/help.xml'
     styles = ['/ui/wiki/style.css']
 
@@ -708,5 +708,5 @@ class WikiPage_Help(STLView):
 
 class WikiPage_HelpODT(STLView):
     access = 'is_allowed_to_view'
-    title = MSG(u"ODT Help")
+    title = MSG("ODT Help")
     template = '/ui/wiki/help_odt.xml'

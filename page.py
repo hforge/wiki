@@ -112,7 +112,7 @@ class Book(Directive):
             value = options.get(key)
             if not value:
                 continue
-            metadata.append('  %s: %s' % (key, value))
+            metadata.append(f'  {key}: {value}')
         template = options.get('template')
         if template is not None:
             metadata.append('  template: ')
@@ -299,8 +299,7 @@ class WikiPage(Text):
         params = {'type': new_type,
                   'title': title_encoded,
                   'name': checkid(title) or title_encoded}
-        refuri = "%s/;new_resource?%s" % (prefix,
-                                          urlencode(params))
+        refuri = f"{prefix}/;new_resource?{urlencode(params)}"
         node['refuri'] = refuri
 
 
@@ -350,7 +349,7 @@ class WikiPage(Text):
             refuri = str(resource.abspath)
             # Restore fragment
             if reference.fragment:
-                refuri = "%s#%s" % (refuri, reference.fragment)
+                refuri = f"{refuri}#{reference.fragment}"
             node['refuri'] = refuri
 
         # Assume image paths are relative to the container

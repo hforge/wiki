@@ -157,8 +157,7 @@ def odt_reference_resolver(resource, reference, context, known_links=[]):
     path = reference.path
     if not path.startswith_slash:
         # Was not resolved
-        raise ValueError('page "%s": the link "%s" is broken' % (
-                resource.name, reference))
+        raise ValueError(f'page "{resource.name}": the link "{reference}" is broken')
     if path not in known_links:
         return default_reference_resolver(resource, reference, context)
     destination = resource.get_resource(path)
@@ -179,7 +178,7 @@ def odt_reference_resolver(resource, reference, context, known_links=[]):
     # No title at all
     if title is None:
         return default_reference_resolver(resource, reference, context)
-    return "#1.%s|outline" % title
+    return f"#1.{title}|outline"
 
 
 
@@ -311,7 +310,7 @@ class WikiPage_View(BaseView):
                     continue
                 refuri = context.get_link(destination)
                 if reference.fragment:
-                    refuri = "%s#%s" % (refuri, reference.fragment)
+                    refuri = f"{refuri}#{reference.fragment}"
                 node['refuri'] = refuri
             elif refname is False:
                 # Wiki link not found
@@ -330,7 +329,7 @@ class WikiPage_View(BaseView):
             destination = resource.get_resource(reference.path, soft=True)
             if destination is None:
                 continue
-            node['uri'] = '%s/;download' % context.get_link(destination)
+            node['uri'] = f'{context.get_link(destination)}/;download'
 
         # Manipulate publisher directly (from publish_from_doctree)
         reader = Reader(parser_name='null')
@@ -441,7 +440,7 @@ class WikiPage_ToPDF(BaseView):
             msg = ERR_PDF_FAILED(dirname=dirname)
             return context.come_back(msg)
 
-        pdfname = '%s.pdf' % resource.name
+        pdfname = f'{resource.name}.pdf'
         if not tempdir.exists(pdfname):
             msg = ERR_PDF_NOT_FOUND(dirname=dirname)
             return context.come_back(msg)
@@ -669,7 +668,7 @@ class WikiPage_ToODT(AutoForm):
         context.set_content_type('application/vnd.oasis.opendocument.text')
         filename = book.get('filename') if book else None
         if not filename:
-            filename = '%s.odt' % resource.name
+            filename = f'{resource.name}.odt'
         context.set_content_disposition('attachment', filename=filename)
 
         output = StringIO()

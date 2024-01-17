@@ -110,7 +110,7 @@ def resolve_references(doctree, resource, context,
             refuri = node.get('refuri')
             if refuri is None:
                 continue
-            reference = get_reference(refuri.encode('utf_8'))
+            reference = get_reference(refuri)
             if is_external(reference):
                 # Keep the unicode version
                 continue
@@ -124,7 +124,7 @@ def resolve_images(doctree, resource, context):
     """
     fs = resource.metadata.database.fs
     for node in doctree.traverse(condition=nodes.image):
-        reference = get_reference(node['uri'].encode('utf8'))
+        reference = get_reference(node['uri'])
         if is_external(reference):
             continue
         name = str(reference.path)
@@ -294,7 +294,7 @@ class WikiPage_View(BaseView):
                 refuri = node.get('refuri')
                 if refuri is None:
                     continue
-                reference = get_reference(refuri.encode('utf_8'))
+                reference = get_reference(refuri)
                 # Skip external
                 if is_external(reference):
                     node['classes'].append('external')
@@ -322,7 +322,7 @@ class WikiPage_View(BaseView):
 
         # Download images directly
         for node in doctree.traverse(condition=nodes.image):
-            reference = get_reference(node['uri'].encode('utf_8'))
+            reference = get_reference(node['uri'])
             if is_external(reference):
                 continue
             destination = resource.get_resource(reference.path, soft=True)

@@ -208,7 +208,7 @@ class WikiPage(Text):
                 refuri = node.get('refuri')
                 if refuri is None:
                     continue
-                reference = get_reference(refuri.encode('utf_8'))
+                reference = get_reference(refuri)
                 # Skip external
                 if is_external(reference):
                     continue
@@ -218,7 +218,7 @@ class WikiPage(Text):
 
         # Images
         for node in doctree.traverse(condition=nodes.image):
-            reference = get_reference(node['uri'].encode('utf_8'))
+            reference = get_reference(node['uri'])
             # Skip external image
             if is_external(reference):
                 continue
@@ -335,7 +335,7 @@ class WikiPage(Text):
             # Skip wiki or fragment link
             if node.get('wiki_name') or not refuri:
                 continue
-            reference = get_reference(refuri.encode('utf_8'))
+            reference = get_reference(refuri)
             # Skip external
             if is_external(reference):
                 continue
@@ -353,7 +353,7 @@ class WikiPage(Text):
 
         # Assume image paths are relative to the container
         for node in doctree.traverse(condition=nodes.image):
-            reference = get_reference(node['uri'].encode('utf_8'))
+            reference = get_reference(node['uri'])
             # Skip external
             if is_external(reference):
                 continue
